@@ -1,73 +1,77 @@
 <template>
   <div id="app">
-    <el-row class="tac">
-      <el-col :span="5">
+    <div class="oeuvre-center">
+      <el-row class="tac">
+        <el-col :span="5">
 
-        <el-card class="box-card">
-          <div slot="header" class="clearfix">
-            <span>分类</span>
-          </div>
-          <table cellspacing="0">
-            <ul v-for="(items,index) in classes">
-              <li>{{items}}</li>
+          <el-card class="box-card">
+            <div slot="header" class="clearfix">
+              <span>分类</span>
+            </div>
+
+            <table cellspacing="0">
+              <th v-for="(items,index) in classes">
+                <tr>{{items}}</tr>
+              </th>
+            </table>
+
+
+          </el-card>
+          <el-card class="box-card">
+            <div slot="header" class="clearfix">
+              <span>状态</span>
+            </div>
+            <div>
+              全部 连载 完本
+
+            </div>
+
+          </el-card>
+          <el-card class="box-card">
+            <div slot="header" class="clearfix">
+              <span>属性</span>
+            </div>
+            <div>
+              全部 免费 VIP
+
+            </div>
+
+          </el-card>
+        </el-col>
+        <el-col :span="19">
+          <div class="book-img-text" v-for="(items,index) in book">
+            <ul class="all-img-list cf">
+              <li data-rid="1">
+                <div class="book-img-box">
+                  <img :src=items.imgs width="102px" height="136px"/>
+                </div>
+                <div class="book-mid-info">
+                  <h4>{{items.name}}</h4>
+                  <p class="name">{{items.classify}}</p>
+                  <p class="intro">{{items.describe}}</p>
+                  <p class="update">{{items.num}}万字</p>
+                </div>
+              </li>
             </ul>
-          </table>
-
-
-        </el-card>
-        <el-card class="box-card">
-          <div slot="header" class="clearfix">
-            <span>状态</span>
-          </div>
-          <div>
-            全部 连载 完本
 
           </div>
 
-        </el-card>
-        <el-card class="box-card">
-          <div slot="header" class="clearfix">
-            <span>属性</span>
-          </div>
-          <div>
-            全部 免费 VIP
-
-          </div>
-
-        </el-card>
-      </el-col>
-      <el-col :span="19">
-        <div class="book-img-text" v-for="(items,index) in book">
-          <ul class="all-img-list cf">
-            <li data-rid="1">
-              <div class="book-img-box">
-                <img :src=items.imgs width="102px" height="136px"/>
-              </div>
-              <div class="book-mid-info">
-                <h4>{{items.name}}</h4>
-                <p class="name">{{items.classify}}</p>
-                <p class="intro">{{items.describe}}</p>
-                <p class="update">{{items.num}}万字</p>
-              </div>
-            </li>
-          </ul>
-
+        </el-col>
+        <div class="block">
+          <span class="demonstration">下一页更精彩哦</span>
+          <el-pagination
+            layout="prev, pager, next"
+            :total="total" :page-size="this.params.size" :current-page="this.params.page"
+            v-on:current-change="changePage">
+          </el-pagination>
         </div>
-
-      </el-col>
-      <div class="block">
-        <span class="demonstration">下一页更精彩哦</span>
-        <el-pagination
-          layout="prev, pager, next"
-          :total="total" :page-size="this.params.size" :current-page="this.params.page"
-          v-on:current-change="changePage">
-        </el-pagination>
-      </div>
-    </el-row>
-
+      </el-row>
+    </div>
   </div>
 </template>
 <script>
+  import axios from 'axios'
+
   export default {
     data() {
       return {
@@ -97,29 +101,22 @@
         classes: [
           "全部", "玄幻", "奇幻", "武侠", "仙侠", "都市", "现实", "军事", "历史", "游戏", "体育", "科幻", "悬疑", "轻小说", "短篇"]
         ,
-
         total: 10,
       }
     },
     methods: {
-      handleOpen(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      handleClose(key, keyPath) {
-        console.log(key, keyPath);
-      }
-    },
-    changePage: function (page) {
-      this.params.page = page;
-      this.findAll();
-    },
-    findAll: function () {
-      var _this = this;
-      axios.get("" + this.params.size + "/" + this.params.page).then(function (res) {
-        _this.book = res.data.list;
-        _this.total = res.data.total
 
-      })
+      changePage: function (page) {
+        this.params.page = page;
+        this.findAll();
+      },
+      findAll: function () {
+        var _this = this;
+        axios.get("" + this.params.size + "/" + this.params.page).then(function (res) {
+          _this.book = res.data.list;
+          _this.total = res.data.total
+        })
+      }
     }
   }
 </script>
@@ -131,6 +128,12 @@
     text-align: center;
     color: #2c3e50;
     margin-top: 0px;
+  }
+
+  .oeuvre-center {
+    width: 1200px;
+    margin-right: auto;
+    margin-left: auto;
   }
 
   .cf {
@@ -154,7 +157,7 @@
 
   .book-img-text .all-img-list li {
     float: left;
-    width: 477px;
+    width: 450px;
   }
 
   .book-img-text li:first-child {
@@ -229,6 +232,17 @@
   a, blockquote, body, dd, div, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, input, li, ol, p, pre, td, textarea, th, ul {
     margin: 0;
     /*padding: 0;*/
+  }
+
+  .demonstration {
+    color: darkorange;
+    font-size: 15px;
+
+  }
+
+  .box-card {
+    font-size: 15px;
+    font-family: '宋体'
   }
 
 </style>
