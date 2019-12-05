@@ -20,7 +20,6 @@ import oeuvre from '@/components/Sord/oeuvre'
 import bookrack from '@/components/Sord/Bookrack'
 import bookcenter from '@/components/Sord/Bookcenter'
 import bookpay from '@/components/Sord/Bookpay'
-import bookseek from '@/components/Sord/Bookseek'
 
 import Home from '../pages/home'
 import Search from '../pages/search'
@@ -125,10 +124,6 @@ export default new Router({
       path: '/bookpay',
       name: 'bookpay',
       component: bookpay
-    },{
-      path: '/bookseek',
-      name: 'bookseek',
-      component: bookseek
     },
     /*虎*/
     {

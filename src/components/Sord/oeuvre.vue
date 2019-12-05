@@ -16,7 +16,7 @@
               <el-menu-item index="1">作品分类</el-menu-item>
             </el-col>
             <el-col :span="3" :offset="0">
-              <el-menu-item index="1">全部作品</el-menu-item>
+              <router-link to="/oeuvre"><el-menu-item index="1">全部作品</el-menu-item></router-link>
             </el-col>
             <el-col :span="3" :offset="1">
               <el-menu-item index="1">排行</el-menu-item>
@@ -112,7 +112,7 @@
             </ul>
           </div>
         </el-col>
-        <div class="block">
+        <div class="blocks">
           <span class="demonstration">下一页更精彩哦</span>
           <el-pagination
             layout="prev, pager, next"

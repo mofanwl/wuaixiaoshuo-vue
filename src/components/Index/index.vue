@@ -6,7 +6,7 @@
           <el-col :span="1"><div class="grid-content bg-purple bg-purple0"></div></el-col>
           <el-col :span="5"><div class="grid-content bg-purple bg-purple1"><b>作品分类</b></div></el-col>
           <el-col :span="14"><div class="grid-content bg-purple bg-purple2" style="margin-left: -15px;margin-right: 50px"><el-row>
-            <el-col :span="4"><div class="grid-content bg-purpley"><a href="http://www.baidu.com"><b>全部作品</b></a></div></el-col>
+            <el-col :span="4"><div class="grid-content bg-purpley"><router-link to="/oeuvre"><b>全部作品</b></router-link></div></el-col>
             <el-col :span="4"><div class="grid-content bg-purpley-light"><a><b>排行</b></a></div></el-col>
             <el-col :span="4"><div class="grid-content bg-purpley"><a><b>完本</b></a></div></el-col>
             <el-col :span="4"><div class="grid-content bg-purpley-light"><a><b>免费</b></a></div></el-col>
@@ -412,7 +412,7 @@
   .notice{
     border: gray 1px;
     background: #fefdff;
-    margin-top: -10px;
+    /*margin-top: -10px;*/
   }
   .bg-purple3{
     margin-top: 200px;
