@@ -350,7 +350,7 @@
     right:0;
   }
   #lay1{
-    padding-top: 30px;
+    /*padding-top: 30px;*/
   }
   .bg-purple1,.bg-purple2{
     background: #161415;

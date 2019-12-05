@@ -1,5 +1,43 @@
 <template>
-  <div id="app">
+
+  <div class="outerd">
+    <div class="laf1">
+      <div class="oeuvre_wrapper">
+        <el-menu
+          :default-active="activeIndex2"
+          class="el-menu-demo"
+          mode="horizontal"
+          @select="handleSelect"
+          background-color="#545c64"
+          text-color="#fff"
+          active-text-color="#ffd04b">
+          <el-row :gutter="20" style=" margin-left: 0px;  margin-right: 0px;height: 60px;">
+            <el-col :span="5" :offset="0">
+              <el-menu-item index="1">作品分类</el-menu-item>
+            </el-col>
+            <el-col :span="3" :offset="0">
+              <el-menu-item index="1">全部作品</el-menu-item>
+            </el-col>
+            <el-col :span="3" :offset="1">
+              <el-menu-item index="1">排行</el-menu-item>
+            </el-col>
+            <el-col :span="3" :offset="0">
+              <el-menu-item index="1">完本</el-menu-item>
+            </el-col>
+            <el-col :span="3" :offset="0">
+              <el-menu-item index="1">免费</el-menu-item>
+            </el-col>
+            <el-col :span="3" :offset="0">
+              <el-menu-item index="1">作家专区</el-menu-item>
+            </el-col>
+            <el-col :span="3" :offset="0">
+              <el-menu-item index="1">客户端</el-menu-item>
+            </el-col>
+          </el-row>
+        </el-menu>
+
+      </div>
+    </div>
     <div class="oeuvre-center">
       <el-row class="tac">
         <el-col :span="5">
@@ -11,8 +49,11 @@
 
             <table cellspacing="0" class="nangao">
               <ul class="myul" v-for="(items,index) in classes">
-                <div  class="left11" style="font-size: 14px">
-                <li @click="fun1(items)" class="myli" style="margin-left: 20px;width:42px;height:14px;padding: 5px;border: 1px solid #e6e6e6">{{items}}</li>
+                <div class="left11" style="font-size: 14px">
+                  <li @click="fun1(items)" class="myli"
+                      style="margin-left: 20px;width:42px;height:14px;padding: 5px;border: 1px solid #e6e6e6">
+                    {{items}}
+                  </li>
                 </div>
               </ul>
             </table>
@@ -26,7 +67,10 @@
             <div>
               <table cellspacing="0" class="nangao">
                 <ul class="my1ul" v-for="(itams,index) in condition">
-                  <li @click="fun2(itams)" class="my1li" style="margin-left: 20px;width:42px;height:14px;padding: 5px;border: 1px solid #e6e6e6">{{itams}}</li>
+                  <li @click="fun2(itams)" class="my1li"
+                      style="margin-left: 20px;width:42px;height:14px;padding: 5px;border: 1px solid #e6e6e6">
+                    {{itams}}
+                  </li>
                 </ul>
               </table>
 
@@ -40,7 +84,10 @@
             <div>
               <table cellspacing="0" class="nangao">
                 <ul class="my1ul" v-for="(itams,index) in nature">
-                  <li @click="fun3(itams)" class="my1li" style="margin-left: 20px;width:42px;height:14px;padding: 5px;border: 1px solid #e6e6e6">{{itams}}</li>
+                  <li @click="fun3(itams)" class="my1li"
+                      style="margin-left: 20px;width:42px;height:14px;padding: 5px;border: 1px solid #e6e6e6">
+                    {{itams}}
+                  </li>
                 </ul>
               </table>
 
@@ -63,9 +110,7 @@
                 </div>
               </li>
             </ul>
-
           </div>
-
         </el-col>
         <div class="block">
           <span class="demonstration">下一页更精彩哦</span>
@@ -159,14 +204,27 @@
   }
 </script>
 <style>
-  .myli:hover{
-    background:black;
+  .oeuvre_wrapper {
+    overflow: hidden;
+    width: 1200px;
+    height: 55px;
+    margin: 0 auto;
+  }
+
+  .outerd {
+    width: 100%;
+  }
+
+  .myli:hover {
+    background: black;
     color: aliceblue;
   }
-  .my1li:hover{
-    background:black;
+
+  .my1li:hover {
+    background: black;
     color: aliceblue;
   }
+
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -180,6 +238,7 @@
     width: 1200px;
     margin-right: auto;
     margin-left: auto;
+    margin-top: 10px;
   }
 
   .cf {
@@ -203,7 +262,7 @@
 
   .book-img-text .all-img-list li {
     float: left;
-    width: 450px;
+    width: 455px;
   }
 
   .book-img-text li:first-child {
@@ -234,7 +293,7 @@
   }
 
   .book-img-text .all-img-list li .book-mid-info {
-    width: 240px;
+    width: 300px;
   }
 
   .book-img-text .book-mid-info {
@@ -318,10 +377,12 @@
     display: block;
 
   }
-  .yangshi{
+
+  .yangshi {
     cursor: pointer;
   }
-  .name{
+
+  .name {
     margin-bottom: 10px
   }
 

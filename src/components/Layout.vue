@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="outertd">
     <div class="yv-header">
       <div class="yv-header-content">
         <img id="header-img" src="../assets/1.png" >
@@ -42,12 +42,18 @@
 </script>
 
 <style scoped>
+  .outertd{
+    width: 100%;
+    height: 45px;
+    margin-top: 50px;
+  }
   .wodeshujia a img{
     float: left;
     padding-left: 20px;
   }
   .yv-header{
     margin-top: -20px;
+
   }
 #header-img,.input-with-select,.wodeshujia,.header-login,.header-splid{
   float: left;

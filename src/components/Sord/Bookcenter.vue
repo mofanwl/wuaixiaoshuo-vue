@@ -77,7 +77,7 @@
   .center_wrapper {
     overflow: hidden;
     width: 990px;
-    height: 72px;
+    height: 74px;
     margin: 0 auto;
   }
 
