@@ -9,7 +9,7 @@
           </el-input>
         </div>
         <div class="wodeshujia" style="margin-top: -10px;margin-left: 100px">
-          <router-link to="/bookrack" target="_blank" data-eid="qd_A14" id="numero2" style="color: black"><img src="../assets/w1.png">我的书架</router-link>
+          <router-link to="/bookcenter/bookrack" target="_blank" data-eid="qd_A14" id="numero2" style="color: black"><img src="../assets/w1.png">我的书架</router-link>
         </div>
           <div class="header-login-regist">
             <div class="header-login"><a href="//me.qidian.com/bookCase/bookCase.aspx?caseId=-2" target="_blank">登录</a></div>

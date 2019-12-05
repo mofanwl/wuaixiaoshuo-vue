@@ -412,7 +412,7 @@
   .notice{
     border: gray 1px;
     background: #fefdff;
-    /*margin-top: -10px;*/
+    margin-top: -10px;
   }
   .bg-purple3{
     margin-top: 200px;

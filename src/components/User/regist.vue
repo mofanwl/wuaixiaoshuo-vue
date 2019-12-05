@@ -1,5 +1,13 @@
 <template>
   <div class="box-center">
+    <!--程长青-->
+    <div class="header">
+      <div class="login-center">
+        <router-link to="/indexindex" style="float: left;"><img src="http://q1bj8tdy9.bkt.clouddn.com/login1.png"/></router-link>
+      </div>
+    </div>
+
+    <!--孔令锦-->
     <div class="login-area-wrap cf">
       <div class="login-op-img fl">
         <img src="../../assets/loginBg.jpg"/>
@@ -278,6 +286,17 @@
 </script>
 
 <style scoped>
+  /*程长青*/
+  .header {
+    height: 80px;
+    border-bottom: 1px solid #DFDFDF;
+  }
+  .login-center{
+    width: 990px;
+    margin: -35px auto;
+  }
+
+  /*孔令锦*/
   .code >>> .el-form-item__content {
     display: flex;
     align-items: center;
@@ -297,9 +316,11 @@
   .login-page {
     -webkit-border-radius: 5px;
     border-radius: 5px;
-    margin: -42px auto;
+    /*margin: -42px auto;*/
+    margin: 30px auto;
     width: 350px;
-    padding: 35px 35px 15px;
+    /*padding: 35px 35px 15px;*/
+    padding: 10px 35px 0px;
     background: #fff;
     border: 1px solid #eaeaea;
     box-shadow: 0 0 25px #cac6c6;
@@ -317,7 +338,7 @@
   .login-area-wrap {
     position: relative;
     z-index: 1;
-    padding: 100px 0;
+    /*padding: 100px 0;*/
     min-height: 430px;
   }
   .login-op-img {
