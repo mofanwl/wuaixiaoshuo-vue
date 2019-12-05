@@ -9,10 +9,12 @@
               <span>分类</span>
             </div>
 
-            <table cellspacing="0">
-              <th v-for="(items,index) in classes">
-                <tr>{{items}}</tr>
-              </th>
+            <table cellspacing="0" class="nangao">
+              <ul class="myul" v-for="(items,index) in classes">
+                <div  class="left11" style="font-size: 14px">
+                <li @click="fun1(items)" class="myli" style="margin-left: 20px;width:42px;height:14px;padding: 5px;border: 1px solid #e6e6e6">{{items}}</li>
+                </div>
+              </ul>
             </table>
 
 
@@ -22,7 +24,11 @@
               <span>状态</span>
             </div>
             <div>
-              全部 连载 完本
+              <table cellspacing="0" class="nangao">
+                <ul class="my1ul" v-for="(itams,index) in condition">
+                  <li @click="fun2(itams)" class="my1li" style="margin-left: 20px;width:42px;height:14px;padding: 5px;border: 1px solid #e6e6e6">{{itams}}</li>
+                </ul>
+              </table>
 
             </div>
 
@@ -32,7 +38,11 @@
               <span>属性</span>
             </div>
             <div>
-              全部 免费 VIP
+              <table cellspacing="0" class="nangao">
+                <ul class="my1ul" v-for="(itams,index) in nature">
+                  <li @click="fun3(itams)" class="my1li" style="margin-left: 20px;width:42px;height:14px;padding: 5px;border: 1px solid #e6e6e6">{{itams}}</li>
+                </ul>
+              </table>
 
             </div>
 
@@ -42,12 +52,12 @@
           <div class="book-img-text" v-for="(items,index) in book">
             <ul class="all-img-list cf">
               <li data-rid="1">
-                <div class="book-img-box">
-                  <img :src=items.imgs width="102px" height="136px"/>
+                <div class="book-img-box" @click="fun4(items)">
+                  <img :src=items.imgs width="102px" height="136px" class="yangshi"/>
                 </div>
                 <div class="book-mid-info">
-                  <h4>{{items.name}}</h4>
-                  <p class="name">{{items.classify}}</p>
+                  <h4 @click="fun4(items)" class="yangshi">{{items.name}}</h4>
+                  <p class="name">{{items.writer}} | {{items.genre}} | {{items.state}}</p>
                   <p class="intro">{{items.describe}}</p>
                   <p class="update">{{items.num}}万字</p>
                 </div>
@@ -76,21 +86,30 @@
     data() {
       return {
         book: [{
+          id: 1,
           imgs: 'https://bookcover.yuewen.com/qdbimg/349573/1004608738/150',
           name: '圣墟',
-          classify: '辰东|玄幻·东方玄幻|连载',
+          writer: '辰东',
+          genre: '玄幻·东方玄幻',
+          state: '连载',
           describe: '在破败中崛起，在寂灭中复苏。沧海成尘，雷电枯竭，那一缕幽雾又一次临近大地，世间的枷锁被打开了，一个全新的世界就此揭开神秘的一角……',
           num: '512.64',
         }, {
+          id: 2,
           imgs: 'https://bookcover.yuewen.com/qdbimg/349573/3602691/150',
           name: '修真聊天群',
-          classify: '圣骑士的传说|都市·都市异能|连载',
+          writer: '圣骑士的传说',
+          genre: '都市·都市异能',
+          state: '连载',
           describe: '某天，宋书航意外加入了一个仙侠中二病资深患者的交流群，里面的群友们都以‘道友’相称，群名片都是各种府主、洞主、真人、天师。连群主走失的宠物犬都称为大妖犬离家出走。整天聊的是炼丹、闯秘境、炼功经验啥的。',
           num: '819.98',
         }, {
+          id: 3,
           imgs: 'https://bookcover.yuewen.com/qdbimg/349573/3602691/150',
           name: '修真聊天群',
-          classify: '圣骑士的传说|都市·都市异能|连载',
+          writer: '圣骑士的传说',
+          genre: '都市·都市异能',
+          state: '连载',
           describe: '某天，宋书航意外加入了一个仙侠中二病资深患者的交流群，里面的群友们都以‘道友’相称，群名片都是各种府主、洞主、真人、天师。连群主走失的宠物犬都称为大妖犬离家出走。整天聊的是炼丹、闯秘境、炼功经验啥的。',
           num: '819.98',
         }],
@@ -101,11 +120,12 @@
         classes: [
           "全部", "玄幻", "奇幻", "武侠", "仙侠", "都市", "现实", "军事", "历史", "游戏", "体育", "科幻", "悬疑", "轻小说", "短篇"]
         ,
+        condition: ["全部", "连载", "完本"],
+        nature: ["全部", "免费", "VIP"],
         total: 10,
       }
     },
     methods: {
-
       changePage: function (page) {
         this.params.page = page;
         this.findAll();
@@ -116,11 +136,37 @@
           _this.book = res.data.list;
           _this.total = res.data.total
         })
+      },
+      // 根据分类查
+      fun1: function (items) {
+        alert(items)
+      },
+      //根据状态查
+      fun2: function (items) {
+        alert(items)
+      },
+      //根据属性查
+      fun3: function (items) {
+        alert(items);
+        (".left11").removeClass("myli");
+        this.addClass("myli");
+      },
+      //点击图片和书名跳转页面
+      fun4: function (items) {
+        alert(items.id)
       }
     }
   }
 </script>
 <style>
+  .myli:hover{
+    background:black;
+    color: aliceblue;
+  }
+  .my1li:hover{
+    background:black;
+    color: aliceblue;
+  }
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -243,6 +289,40 @@
   .box-card {
     font-size: 15px;
     font-family: '宋体'
+  }
+
+  .nangao {
+    margin-left: -55px;
+  }
+
+  .myul {
+    width: 240px;
+  }
+
+  .myli {
+    cursor: pointer;
+    width: 60px;
+    float: left;
+    display: block;
+
+  }
+
+  .my1ul {
+    width: 240px;
+  }
+
+  .my1li {
+    cursor: pointer;
+    width: 80px;
+    float: left;
+    display: block;
+
+  }
+  .yangshi{
+    cursor: pointer;
+  }
+  .name{
+    margin-bottom: 10px
   }
 
 </style>
