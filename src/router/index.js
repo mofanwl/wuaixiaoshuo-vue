@@ -108,6 +108,23 @@ export default new Router({
       path: '/oeuvre',
       name: 'oeuvre',
       component: oeuvre
+
+    }
+    ,{
+      path: '/bookcenter',
+      name: 'bookcenter',
+      component: bookcenter,
+      children:[
+        {path: 'bookrack',name: 'bookrack',component: bookrack}
+      ]
+    },{
+      path: '/bookpay',
+      name: 'bookpay',
+      component: bookpay
+    },{
+      path: '/bookseek',
+      name: 'bookseek',
+      component: bookseek
     },
     /*虎*/
     {
@@ -141,21 +158,6 @@ export default new Router({
       path:'/manage',
       name:'manage',
       component:manage
-    },{
-      path: '/bookcenter',
-      name: 'bookcenter',
-      component: bookcenter,
-      children:[
-        {path: 'bookrack',name: 'bookrack',component: bookrack}
-      ]
-    },{
-      path: '/bookpay',
-      name: 'bookpay',
-      component: bookpay
-    },{
-      path: '/bookseek',
-      name: 'bookseek',
-      component: bookseek
     }
   ]
 })
