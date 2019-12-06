@@ -59,24 +59,24 @@
             <el-col :span="12"><div style="margin-top:-20px"><h3>本周强推</h3></div></el-col>
             <el-col :span="10"><div class="grid-content bg-purple-light"><a href=""><h5>更多>></h5></a></div></el-col>
           </el-row><hr><el-table
-            :data="bookData"
-            style="width: 100%">
+            :data="moHu"
+            style="width: 100%;height: 650px">
             <el-table-column
-              prop="type"
+              prop="books_type"
               width="70">
             </el-table-column>
             <el-table-column
-              prop="name"
+              prop="books_name"
               width="100">
             </el-table-column>
             <el-table-column
-              prop="zuozhe"
+              prop="books_vip"
             >
             </el-table-column></el-table></div></el-col>
 
-          <el-col :span="13"><div class="grid-content bg-purpley3-light"><div class="el-header1"><h3>本类强推</h3></div><br><hr><el-container>
+          <el-col :span="13"><div class="grid-content bg-purpley3-light"><div class="el-header1"><h3>&gt;&amp;本类强推&amp;&lt;</h3></div><br><hr><el-container>
             <el-header>
-              <h3>风陵渡口初相遇，一见杨过误终身。</h3>
+              <h3>全类推荐&trade;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&reg;本类推荐</h3>
             </el-header>
             <el-main><el-row>
               <!--  <el-button v-popover:popover1>hover 激活</el-button>-->
@@ -86,9 +86,10 @@
 
                 </el-carousel-item>
               </el-carousel></div></el-col>
+              <!--展示对应类别的7个数据-->
               <el-col :span="13"><div class="grid-content bg-purple3mid"><el-carousel @change="change()"  :interval="4000" type="card" height="125px">
-                <el-carousel-item v-for="(item,index) in bookList">
-                  <img :src="item.src" style="width: 93px;height: 124px" :title="item.desc" >
+                <el-carousel-item v-for="(item,index) in fenLei">
+                  <img :src=item.books_pic style="width: 93px;height: 124px" :title="item.books_name" >
                 </el-carousel-item>
               </el-carousel></div></el-col>
             </el-row></el-main>
@@ -159,6 +160,14 @@
         return {
           activeIndex: '1',
           activeIndex2: '1',
+          /*空集合数组，准备接受Axios根据模糊查询请求来的对象数据*/
+          moHu: [
+            {books_id:1,books_name:'小说',books_vip:1,books_type:1,books_url:'123',books_pic:'123',books_status:1}
+          ],
+          /*空集合数组，准备接受Axios根据TypeId查询请求来的对象数据*/
+          fenLei:[
+            {books_id:1,books_name:'小说',books_vip:1,books_type:1,books_url:'123',books_pic:'123',books_status:1}
+          ],
           bookList: [
             {key: 'hnbc', src: 'https://bookcover.yuewen.com/qdbimg/349573/1015753893/90', desc: '出名太快怎么办'},
             {key: 'xhdz', src: 'https://bookcover.yuewen.com/qdbimg/349573/1016289011/90', desc: '华山剑气'},
@@ -234,7 +243,29 @@
       methods: {
         handleSelect(key, keyPath) {
           console.log(key, keyPath);
-        }
+        },
+        /*模糊查询*/
+
+
+      },
+      mounted(){
+          axios.get("api/book/selectAllByName?name="+this.$route.query.scc).then(res=>{
+            alert(this.$route.query.scc)
+            console.log(res.data)
+            this.moHu=  res.data;
+          })
+
+          /*点击类别得到该类别id,搜索对应类别的数据*/
+          /*带参的请求---箭头函数*/
+        axios.get("api/book/selectAllByType?type="+this.$route.query.id).then(res=>{
+          alert(this.$route.query.id)
+          console.log(res.data)
+          if (res.data!=null){
+            this.fenLei=res.data;
+          }else {
+            alert("小店正在装修升级，敬请期待")
+          }
+        })
       }
     }
 </script>

@@ -4,18 +4,18 @@
       <el-row>
         <el-col :span="24"><div class="grid-content bg-purple-dark"><el-row :gutter="20">
           <el-col :span="1"><div class="grid-content bg-purple bg-purple0"></div></el-col>
-          <el-col :span="5"><div class="grid-content bg-purple bg-purple1"><b>作品分类</b></div></el-col>
+          <el-col :span="5"><div class="grid-content bg-purple bg-purple1"><b class="el-icon-menu">作品分类</b></div></el-col>
           <el-col :span="14"><div class="grid-content bg-purple bg-purple2" style="margin-left: -15px;margin-right: 50px"><el-row>
-            <el-col :span="4"><div class="grid-content bg-purpley"><a href="http://www.baidu.com"><b>全部作品</b></a></div></el-col>
+            <el-col :span="4"><div class="grid-content bg-purpley"><a @click="quanbu"><b>全部作品</b></a></div></el-col>
             <el-col :span="4"><div class="grid-content bg-purpley-light"><a><b>排行</b></a></div></el-col>
             <el-col :span="4"><div class="grid-content bg-purpley"><a><b>完本</b></a></div></el-col>
             <el-col :span="4"><div class="grid-content bg-purpley-light"><a><b>免费</b></a></div></el-col>
-            <el-col :span="4"><div class="grid-content bg-purpley"><a><b>作家专区</b></a></div></el-col>
-            <el-col :span="4"><div class="grid-content bg-purpley-light"><a><b>客户端</b></a></div></el-col>
+            <el-col :span="4"><div class="grid-content bg-purpley"><a class="el-icon-s-custom"><b>作家专区</b></a></div></el-col>
+            <el-col :span="4"><div class="grid-content bg-purpley-light"><a class="el-icon-mobile"><b>客户端</b></a></div></el-col>
           </el-row></div></el-col>
-          <el-col :span="2"><div class="grid-content bg-purple bg-purple00" style="margin-left: -100px"><el-dropdown>
+          <el-col :span="2"><div class="grid-content bg-purple bg-purple00" style="margin-left: -60px"><el-dropdown>
             <el-button type="primary">
-              页游|手游<i class="el-icon-arrow-down el-icon--right"></i>
+              <b class="el-icon-s-platform">页游</b>|<b class="el-icon-mouse">手游</b><i class="el-icon-arrow-down el-icon--right"></i>
             </el-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>我的英雄学院<br><img src="https://img0.qidian.com/upload/gamesy/2019/10/31/20191031101327vpge5vigfl.jpg" style="width: 150px;height: 50px"></el-dropdown-item>
@@ -36,14 +36,12 @@
           <!--遍历拿到所有类型的数据信息-->
           <div v-for="(items,index) in tableData">
             <el-col :span="12">
-              <div class="grid-content bg-purple-light21">
-                <a href="http://www.qidian.com/news/detail/072952497" target="_blank" data-eid="qd_A71">
+              <div class="grid-content bg-purple-light21"  @click="findType(items.type_id)">
                   <cite><img :src=items.type_img style="margin-top: 5px"/>
                     <span class="info">
             <i>{{items.type_name}}</i><b>{{items.type_col}}</b>
           </span>
                   </cite>
-                </a>
               </div>
             </el-col></div>
           <!--<el-col :span="12"><div class="grid-content bg-purple-light21"><a href="/xuanhuan" target="_blank" data-eid="qd_A71"><cite><img src="../../assets/q2.png" style="margin-top: 5px"/>-->
@@ -91,7 +89,7 @@
               </el-carousel-item>
             </el-carousel>
           </div></el-header>
-          <el-main style="overflow:-Scroll;overflow-x:hidden"><el-row>
+          <el-main style="overflow-x:hidden"><el-row>
             <el-col :span="8"><div class="grid-content bg-purple3" style="height: 170px"><img src="https://bossaudioandcomic-1252317822.image.myqcloud.com/activity/document/7eaa8bd8fc72d4f536c17be887df8238.png"/></div></el-col>
             <el-col :span="8"><div class="grid-content bg-purple3" style="height: 170px;background: azure"><img src="https://img2.qidian.com/upload/gamesy/2019/11/05/20191105172857rg5gdsfwzb.png"/></div></el-col>
             <el-col :span="8"><div class="grid-content bg-purple3" style="height: 170px"><img src="https://qidian.qpic.cn/qidian_common/349573/bd326aea6e0a7ca656ed6a4011745b90/0"/></div></el-col>
@@ -139,31 +137,31 @@
           <el-main><el-row>
             <!--  <el-button v-popover:popover1>hover 激活</el-button>-->
             <el-col :span="11"><div class="grid-content bg-purple3mid"><el-carousel @change="change()"  :interval="4000" type="card" height="125px">
-              <el-carousel-item v-for="(item,index) in bookList" v-model:ref="index"  :key="item.key" >
+              <el-carousel-item v-for="(item,index) in bookList" :ref="index"  :key="item.key">
                 <img :src="item.src" style="width: 93px;height: 124px" :title="item.desc" >
 
               </el-carousel-item>
             </el-carousel></div></el-col>
             <el-col :span="13"><div class="grid-content bg-purple3mid1" style="color: red"><el-carousel  name="second"  height="125px">
               <el-carousel-item v-for="(item,index) in bookList" :key="item.key">
-                <h3>{{item.desc}}</h3>
+                <h3>{{item.desc}}</h3><br>怎么大风越吹，我心越荡
               </el-carousel-item>
             </el-carousel>
             </div></el-col>
           </el-row></el-main>
-          <el-main><el-row :gutter="20">
-            <el-col :span="8"><div class="grid-content bg-purple3mid2">
-              <h4><a href="//book.qidian.com/info/1016218809" data-eid="qd_A110" data-bid="1016218809" target="_blank" style="color: black">穿越到电影世界</a></h4>
-              <em class="total" style="color: red"><cite>58,889</cite><i>人在追</i></em>
-              <h6>意外来到了八十年代的香港，小马哥街边擦车，陈家驹在大街上追逐歹徒，……</h6></div></el-col>
-            <el-col :span="8"><div class="grid-content bg-purple3mid2"><h4><a href="//book.qidian.com/info/1016218809" data-eid="qd_A110" data-bid="1016218809" target="_blank" style="color: black">穿越到电影世界</a></h4>
-              <em class="total" style="color: red"><cite>58,889</cite><i>人在追</i></em>
-              <h6>意外来到了八十年代的香港，小马哥街边擦车，陈家驹在大街上追逐歹徒，……</h6></div></el-col>
-            <el-col :span="8"><div class="grid-content bg-purple3mid2"><h4><a href="//book.qidian.com/info/1016218809" data-eid="qd_A110" data-bid="1016218809" target="_blank" style="color: black">穿越到电影世界</a></h4>
-              <em class="total" style="color: red"><cite>58,889</cite><i>人在追</i></em>
-              <h6>意外来到了八十年代的香港，小马哥街边擦车，陈家驹在大街上追逐歹徒，……</h6></div></el-col>
-          </el-row></el-main>
-          <el-main><el-row :gutter="20">
+          <el-main><div class="haha" v-for="(items,index) in suiJi.slice(1,7)">
+            <div class="grid-content bg-purple3mid2" style="width: 202px;margin-left: 10px;float: left;overflow-y:hidden">
+              <h4><div class="total1"><a href="//book.qidian.com/info/1016218809" target="_blank" style="color: black">{{items.books_name}}</a></div></h4>
+              <div class="total" style="color: red;margin-top: -10px"><cite>{{items.books_count}}</cite><i>人在追</i></div>
+              <h6 style="margin-top: 1px"><p align="left">{{items.books_describe}}</p></h6>
+            </div>
+
+            <!--<el-col :span="8"><div class="grid-content bg-purple3mid3"><h4><a href="//book.qidian.com/info/1016218809" data-eid="qd_A110" data-bid="1016218809" target="_blank" style="color: black">穿越到电影世界</a></h4>
+              <em class="total" style="color: red"><cite>58,889</cite><i>人在追222</i></em>
+              <h6>{{items.books_describe}}</h6></div></el-col>-->
+
+          </div></el-main>
+         <!-- <el-main><el-row :gutter="20">
             <el-col :span="8"><div class="grid-content bg-purple3mid3"><h4><a href="//book.qidian.com/info/1016218809" data-eid="qd_A110" data-bid="1016218809" target="_blank" style="color: black">穿越到电影世界</a></h4>
               <em class="total" style="color: red"><cite>58,889</cite><i>人在追</i></em>
               <h6>意外来到了八十年代的香港，小马哥街边擦车，陈家驹在大街上追逐歹徒，……</h6></div></el-col>
@@ -173,7 +171,7 @@
             <el-col :span="8"><div class="grid-content bg-purple3mid3"><h4><a href="//book.qidian.com/info/1016218809" data-eid="qd_A110" data-bid="1016218809" target="_blank" style="color: black">穿越到电影世界</a></h4>
               <em class="total" style="color: red"><cite>58,889</cite><i>人在追</i></em>
               <h6>意外来到了八十年代的香港，小马哥街边擦车，陈家驹在大街上追逐歹徒，……</h6></div></el-col>
-          </el-row></el-main>
+          </el-row></el-main>-->
           <el-main><el-row :gutter="20">
             <el-col :span="12"><div class="grid-content bg-purple3mid4"><div class="hover-box"><div class="book-info"><h3>
               <a href="//book.qidian.com/info/1016509432" data-eid="qd_A172" data-bookid="1016509432" target="_blank">世界树的游戏</a>
@@ -244,8 +242,13 @@
 
     data() {
       return {
+        /*空集合数组，准备接受Axios根据模糊查询请求来的对象数据*/
+        suiJi: [
+          {books_id:1,books_name:'小说',books_vip:1,books_type:1,books_url:'123',books_pic:'123',books_author:'强哥的猫',books_describe:'我们一起学猫叫，一起喵喵喵',books_count:21.3,books_status:1,books_lianzai:1}
+        ],
         /*空集合数组，准备接受Axios请求来的对象数据*/
         tableData: [
+          {type_id:1,type_name:'武侠',type_img:'12122',type_col:'121212'}
         ],
         fenleiDate:[],
         carouselList: [
@@ -322,6 +325,7 @@
 
     },
     methods:{
+      /*左侧分类栏接口*/
       //查询全部,不带分页
       findAll:function () {
         var  _this = this;
@@ -329,6 +333,15 @@
           console.log(res.data)
           _this.tableData=  res.data;
         })
+      },
+      /*通过类别Id查对应类别所有数据*/
+      findType:function(scop){
+        // alert(scop);
+        this.$router.push("/type_search?id="+scop)
+      },
+      quanbu:function(){
+        alert("即将前往全部作品页，请系好安全带")
+        this.$router.push("/oeuvre")
       },
       change:function (par) {
         //alert(par)
@@ -339,12 +352,21 @@
       }*/
     },
     mounted(){
-      this.findAll()
+      this.findAll();
+      axios.get("api/book/selectAll").then(res=>{
+        //alert(this.$route.query.scc)
+        console.log(res.data)
+        //res.data.books_type=3?'奇幻':'武侠'
+        this.suiJi=res.data;
+      })
     }
   };
 </script>
 
 <style>
+  a,.bg-purple-light21:hover{
+    cursor:pointer
+  }
   #zhuye{
     left:0;
     right:0;
@@ -489,12 +511,14 @@
     margin-top: -10px;
   }
   .bg-purple3mid1{
-    background: #c7ccff;
+    background: #fcffe0;
     height: 140px;
     margin-top: 0px;
   }
   .bg-purple3mid2,.bg-purple3mid3{
-    height: 150px;
+    height: 200px;
+    margin-top: 15px;
+    background: #fff8f9;
   }
   .bg-purple3mid4{
     height: 100px;
@@ -522,6 +546,9 @@
   }
   li, ol, ul {
     list-style: none outside none;
+  }
+  .filter-search{
+    margin-left: 300px;
   }
 
 </style>

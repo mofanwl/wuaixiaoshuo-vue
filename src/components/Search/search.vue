@@ -96,17 +96,17 @@
             <div class="left3" style="margin-left: -35px;background: #a9a97b">
               <div>
                 <el-col :span="19">
-                  <div class="book-img-text" v-for="(items,index) in book">
+                  <div class="book-img-text" v-for="(items,index) in moHu">
                     <ul class="all-img-list cf">
                       <li data-rid="1">
                         <div class="book-img-box" @click="fun4(items)">
-                          <img :src=items.imgs width="102px" height="136px" class="yangshi"/>
+                          <img :src=items.books_pic width="102px" height="136px" class="yangshi"/>
                         </div>
                         <div class="book-mid-info">
-                          <h4 @click="fun4(items)" class="yangshi">{{items.name}}</h4>
-                          <p class="name" align="left">{{items.writer}} | {{items.genre}} | {{items.state}}</p>
-                          <p class="intro" align="left">{{items.describe}}</p>
-                          <p class="update" align="left">{{items.num}}万字</p></div>
+                          <h4 @click="fun4(items)" class="yangshi">{{items.books_name}}</h4>
+                          <p class="name" align="left">作者:{{items.books_author}} | 状态:{{items.status_name}} | {{items.books_status=1?'上架':'已下架'}}</p>
+                          <p class="intro" align="left">描述:{{items.books_describe}}</p>
+                          <p class="update" align="left">{{items.books_count}}字</p></div>
                         <div class="right" style="margin-top: 30px">
                           <el-row>
                             <el-button type="danger">书籍详情</el-button>
@@ -132,18 +132,18 @@
             <el-col :span="12"><div style="margin-top:10px"><h3>本周强推</h3></div></el-col>
             <el-col :span="10"><div class="grid-content bg-purple-light" style="background: #c3fce6"><a href=""><h5>更多>></h5></a></div></el-col>
           </el-row><hr><el-table
-            :data="tableData"
-            style="width: 100%">
+            :data="moHu"
+            style="width: 100%;height: 650px">
             <el-table-column
-              prop="type"
+              prop="type_name"
               width="70">
             </el-table-column>
             <el-table-column
-              prop="name"
-              width="100">
+              prop="books_name"
+              width="200">
             </el-table-column>
             <el-table-column
-              prop="zuozhe"
+              prop="vip_name"
             >
             </el-table-column></el-table></div></div>
         </el-col>
@@ -153,12 +153,17 @@
 </template>
 
 <script>
+  import axios from 'axios'
   export default {
     name: "search",
     data() {
       return {
         activeIndex: '1',
         activeIndex2: '1',
+        /*空集合数组，准备接受Axios根据模糊查询请求来的对象数据*/
+        moHu: [
+          {books_id:1,books_name:'小说',books_vip:1,books_type:1,books_url:'123',books_pic:'123',books_author:'强哥的猫',books_describe:'我们一起学猫叫，一起喵喵喵',books_count:21.3,books_status:1,status_name:'已完结',vip_name:'会员',type_name:'仙侠'}
+        ],
         book: [{
           id: 1,
           imgs: 'https://bookcover.yuewen.com/qdbimg/349573/1004608738/150',
@@ -246,7 +251,14 @@
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
       }
-    }
+    },
+    mounted(){
+      axios.get("api/book/selectAllByName?name="+this.$route.query.scc).then(res=>{
+        alert(this.$route.query.scc)
+        console.log(res.data)
+        //res.data.books_type=3?'奇幻':'武侠'
+          this.moHu=res.data;
+      })}
   }
 </script>
 
