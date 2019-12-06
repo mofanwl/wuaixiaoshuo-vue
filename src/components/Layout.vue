@@ -1,20 +1,20 @@
 <template>
-  <div class="outertd">
+  <div>
     <div class="yv-header">
-      <div class="yv-header-content">
-        <router-link to="/indexindex"><img id="header-img" src="../assets/1.png" ></router-link>
+      <div class="yv-header-content"><a @click="toNo1">
+        <img id="header-img" src="../assets/1.png" ></a>
         <div class="input-with-select" style="margin-top: 15px;width:300px;margin-top: -10px;margin-left: 300px">
           <el-input placeholder="请输入内容" v-model="input5" class="input-with-select">
-            <el-button slot="append" icon="el-icon-search" style="background-color: crimson;color: aliceblue">搜索</el-button>
+            <el-button slot="append" icon="el-icon-search" style="background-color: crimson;color: aliceblue" @click="searchM(input5)">搜索</el-button>
           </el-input>
         </div>
         <div class="wodeshujia" style="margin-top: -10px;margin-left: 100px">
-          <router-link to="/bookcenter/bookrack" target="_blank" data-eid="qd_A14" id="numero2" style="color: black"><img src="../assets/w1.png">我的书架</router-link>
+        <a @click="toShujia" target="_blank" data-eid="qd_A14" id="numero2" style="color: black"><img src="../assets/w1.png">我的书架</a>
         </div>
           <div class="header-login-regist">
-            <div class="header-login"><a href="//me.qidian.com/bookCase/bookCase.aspx?caseId=-2" target="_blank">登录</a></div>
+            <div class="header-login"><a @click="toLogin" class="el-icon-user-solid">登录</a></div>
           <div class="header-splid">|</div>
-            <div class="header-login"><a href="//me.qidian.com/bookCase/bookCase.aspx?caseId=-2" target="_blank">注册</a></div>
+            <div class="header-login"><a @click="toRegist" target="_blank" class="el-icon-user">注册</a></div>
         </div>
 
       </div>
@@ -32,6 +32,28 @@
             select: ''
           }
         },
+      methods:{
+        toNo1:function(){
+          alert("即将回首页")
+          this.$router.push("/indexindex")
+        },
+        toLogin:function(){
+          alert("即将进入登录页面")
+          this.$router.push("/login")
+        },
+        toRegist:function(){
+          alert("即将进入注册页面")
+          this.$router.push("/regist")
+        },
+        toShujia:function(){
+          alert("即将传送至我的书架")
+          this.$router.push("/bookcenter/bookrack")
+        },
+        searchM:function (scop) {
+          // alert(scop);
+            this.$router.push('/search?scc='+scop)
+        }
+      },
       created:function () {
         this.$emit('public_header', false)
       },
@@ -42,10 +64,8 @@
 </script>
 
 <style scoped>
-  .outertd{
-    width: 100%;
-    height: 45px;
-    margin-top: 50px;
+  a:hover{
+    cursor:pointer
   }
   .wodeshujia a img{
     float: left;
@@ -53,18 +73,17 @@
   }
   .yv-header{
     margin-top: -20px;
-
   }
 #header-img,.input-with-select,.wodeshujia,.header-login,.header-splid{
   float: left;
 }
 #header-img{
-  margin-left: 60px;
+  margin-left: 40px;
   margin-top: -25px;
 }
 .header-login-regist{
   margin-top: 30px;
-  margin-left: 1200px;
+  margin-left: 1100px;
 }
 .wodeshujia a:hover{
 background-color: red;
