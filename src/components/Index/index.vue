@@ -345,6 +345,9 @@
 </script>
 
 <style>
+  #app{
+    margin-top: 0px;
+  }
   #zhuye{
     left:0;
     right:0;
@@ -429,8 +432,9 @@
     margin-left: -20px;
   }
   .grid-content {
-    min-height: 35px;
-    padding-top: 2px;
+    min-height: 50px;
+    /*padding-top: 2px;*/
+    line-height: 50px;
   }
   .color-type_0 a{
     color: black;

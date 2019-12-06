@@ -11,7 +11,7 @@
           background-color="#545c64"
           text-color="#fff"
           active-text-color="#ffd04b">
-          <el-row :gutter="20" style=" margin-left: 0px;  margin-right: 0px;height: 60px;">
+          <el-row :gutter="20" style=" margin-left: 0px;  margin-right: 0px;height: 50px;">
             <el-col :span="5" :offset="0">
               <el-menu-item index="1">作品分类</el-menu-item>
             </el-col>
@@ -162,18 +162,19 @@
           size: 2,
           page: 1,
         },
+        total: 10,
         classes: [
           "全部", "玄幻", "奇幻", "武侠", "仙侠", "都市", "现实", "军事", "历史", "游戏", "体育", "科幻", "悬疑", "轻小说", "短篇"]
         ,
         condition: ["全部", "连载", "完本"],
         nature: ["全部", "免费", "VIP"],
-        total: 10,
       }
     },
     methods: {
       changePage: function (page) {
         this.params.page = page;
         this.findAll();
+        // this.fun1(items);
       },
       findAll: function () {
         var _this = this;
@@ -184,6 +185,7 @@
       },
       // 根据分类查
       fun1: function (items) {
+
         alert(items)
       },
       //根据状态查
@@ -192,9 +194,10 @@
       },
       //根据属性查
       fun3: function (items) {
+        // (".left11").removeClass("myli");
+        // this.addClass("myli");
+
         alert(items);
-        (".left11").removeClass("myli");
-        this.addClass("myli");
       },
       //点击图片和书名跳转页面
       fun4: function (items) {
@@ -385,5 +388,12 @@
   .name {
     margin-bottom: 10px
   }
-
+  .el-menu-item, .el-submenu__title {
+    height: 50px;
+    line-height: 50px;
+    position: relative;
+    -webkit-box-sizing: border-box;
+    white-space: nowrap;
+    list-style: none;
+  }
 </style>

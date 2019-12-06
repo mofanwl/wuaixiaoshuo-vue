@@ -2,7 +2,7 @@
   <div class="outertd">
     <div class="yv-header">
       <div class="yv-header-content">
-        <img id="header-img" src="../assets/1.png" >
+        <router-link to="/indexindex"><img id="header-img" src="../assets/1.png" ></router-link>
         <div class="input-with-select" style="margin-top: 15px;width:300px;margin-top: -10px;margin-left: 300px">
           <el-input placeholder="请输入内容" v-model="input5" class="input-with-select">
             <el-button slot="append" icon="el-icon-search" style="background-color: crimson;color: aliceblue">搜索</el-button>
@@ -59,7 +59,7 @@
   float: left;
 }
 #header-img{
-  margin-left: 40px;
+  margin-left: 60px;
   margin-top: -25px;
 }
 .header-login-regist{
