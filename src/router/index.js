@@ -5,12 +5,22 @@ import regist from '@/components/User/regist'
 import phone from '@/components/User/phone'
 import yzm from '@/components/User/phone-yzm'
 import details from '@/components/User/Details'
+import retrieve from '@/components/User/retrieve'
+import ceshi from '@/components/User/ceshi'
+import ceshi3 from '@/components/User/ceshi3'
+import modify from '@/components/User/modify'
 
 
-import index from '@/components/Index/index'
+import indexindex from '@/components/Index/index'
+import search from '@/components/Search/search'
+import type_search from '@/components/Search/type_search'
 
 
 import oeuvre from '@/components/Sord/oeuvre'
+import bookrack from '@/components/Sord/Bookrack'
+import bookcenter from '@/components/Sord/Bookcenter'
+import bookpay from '@/components/Sord/Bookpay'
+import bookmeber from '@/components/Sord/Bookmeber'
 
 import Home from '../pages/home'
 import Search from '../pages/search'
@@ -23,13 +33,31 @@ Vue.use(Router)
 export default new Router({
   routes: [
     /*张浩*/
+    
     {
-      path: '/',
-      name: 'index',
-      component: index
+      path: '/indexindex',
+      name: 'indexindex',
+      component: indexindex,
+      meta: {
+        keep: true
+      }
     }
-  /*孔*/
-    ,
+    , {
+      path: '/search',
+      name: 'search',
+      component: search,
+      meta: {
+        keep: false
+      }
+    }, {
+      path: '/type_search',
+      name: 'type_search',
+      component: type_search,
+      meta: {
+        keep: false
+      }
+    },
+    /*孔*/
     {
       path: '/login',
       name: 'login',
@@ -56,18 +84,59 @@ export default new Router({
       name: 'details',
       component: details
     },
+    {
+      path: '/retrieve',
+      name: 'retrieve',
+      component: retrieve
+    },
+    {
+      path: '/ceshi',
+      name: 'ceshi',
+      component: ceshi
+    },
+    {
+      path: '/modify',
+      name: 'modify',
+      component: modify
+    },
+    {
+      path: '/ceshi3',
+      name: 'ceshi3',
+      component: ceshi3
+    },
     /*程*/
     {
       path: '/oeuvre',
       name: 'oeuvre',
-      component: oeuvre
+      component: oeuvre,
+      meta: {
+        keep: true
+      }
+
+    }
+    , {
+      path: '/bookcenter',
+      name: 'bookcenter',
+      component: bookcenter,
+      children: [
+        {path: 'bookrack', name: 'bookrack', component: bookrack}
+      ]
+    }, {
+      path: '/bookpay',
+      name: 'bookpay',
+      component: bookpay
+    },
+    {
+      path: '/bookmeber',
+      name: 'bookmeber',
+      component: bookmeber
     },
     /*虎*/
     {
       path: '/home',
       name: 'Home',
       component: Home,
-      children:[
+      children: [
         {
           name: "Zuopin",
           path: "zuopin",
@@ -91,9 +160,10 @@ export default new Router({
       component: Kong
     },
     {
-      path:'/manage',
-      name:'manage',
-      component:manage
+      path: '/manage',
+      name: 'manage',
+      component: manage
     }
   ]
 })
+

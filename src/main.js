@@ -6,6 +6,7 @@ import router from './router'
 import Axios from 'axios'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+
 Vue.config.productionTip = false
 //全局使用axios,elementui
 Vue.use(ElementUI)
@@ -14,6 +15,6 @@ Vue.prototype.$axios = Axios
 new Vue({
   el: '#app',
   router,
-  components: { App },
+  components: {App},
   template: '<App/>'
 })

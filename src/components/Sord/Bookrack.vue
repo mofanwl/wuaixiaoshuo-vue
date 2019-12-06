@@ -6,19 +6,19 @@
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form label-position="left" inline class="demo-table-expand">
-            <el-form-item label="书名">
+            <el-form-item label="书名:">
               <span>{{ props.row.name }}</span>
             </el-form-item>
-            <el-form-item label="作者">
+            <el-form-item label="作者:">
               <span>{{ props.row. writer }}</span>
             </el-form-item>
-            <el-form-item label="类型">
+            <el-form-item label="类型:">
               <span>「{{ props.row.genre }}」</span>
             </el-form-item>
-            <el-form-item label="状态">
+            <el-form-item label="状态:">
               <span>{{ props.row.state}}</span>
             </el-form-item>
-            <el-form-item label="字数">
+            <el-form-item label="字数:">
               <span>{{ props.row.num }}万字</span>
             </el-form-item>
           </el-form>
@@ -39,7 +39,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <div class="block">
+    <div class="blocks">
       <el-pagination
         layout="prev, pager, next"
         :total="total" :page-size="this.params.size" :current-page="this.params.page" v-on:current-change="changePage">
@@ -50,13 +50,14 @@
 
 <script>
   import axios from 'axios'
+
   export default {
     name: "Bookrack",
     data() {
       return {
         book: [
-          {name:'圣墟',writer:'陈东',genre:'玄幻·东方玄幻',state:'连载',num:'513.04'},
-          {name:'圣墟',writer:'陈东',genre:'玄幻·东方玄幻',state:'连载',num:'513.04'},
+          {id: 1, name: '圣墟', writer: '陈东', genre: '玄幻·东方玄幻', state: '连载', num: '513.04'},
+          {id: 2, name: '圣墟', writer: '陈东', genre: '玄幻·东方玄幻', state: '连载', num: '513.04'},
         ],
         params: {
           size: 2,
@@ -78,6 +79,17 @@
           _this.total = res.data.total;
           // _this.page = res.data.page
         })
+      },
+      //删
+      deleteById:function (scope) {
+        alert(scope.id)
+        axios.post("",{id:scope.id}).then(res=>{
+          if(res.data==("success")){
+            this.findAll()
+          }else {
+            alert("删除失败")
+          }
+        })
       }
     }
   }
@@ -90,6 +102,7 @@
     min-height: calc(100vh - 277px);
     margin: 0 auto;
   }
+
   .demo-table-expand {
     font-size: 0;
   }
