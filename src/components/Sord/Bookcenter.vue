@@ -27,12 +27,12 @@
               <a href="http://game.qidian.com/"><el-menu-item index="1"><i class="el-icon-coordinate"></i>游戏</el-menu-item></a>
             </el-col>
             <el-col :span="2.5" :offset="0">
-              <el-menu-item index="1">起点首页</el-menu-item>
+              <router-link to="/indexindex"><el-menu-item index="1">起点首页</el-menu-item></router-link>
             </el-col>
             <el-col :span="5" :offset="0">
               <el-submenu index="2">
                 <template slot="title">用户</template>
-                <el-menu-item index="2-1">充值</el-menu-item>
+                <router-link to="/bookpay"><el-menu-item index="2-1">充值</el-menu-item></router-link>
                 <el-menu-item index="2-2">个人设置</el-menu-item>
                 <el-menu-item index="2-3">我的主页</el-menu-item>
                 <el-menu-item index="2-4">客服中心</el-menu-item>
@@ -54,7 +54,10 @@
     data() {
       return {
         activeIndex: '1',
-        activeIndex2: '1'
+        activeIndex2: '1',
+        user:{id:1,
+        name:'zhang'
+        }
       };
     },
     methods: {
@@ -77,7 +80,7 @@
   .center_wrapper {
     overflow: hidden;
     width: 990px;
-    height: 72px;
+    height: 74px;
     margin: 0 auto;
   }
 

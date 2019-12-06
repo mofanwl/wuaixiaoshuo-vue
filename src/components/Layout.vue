@@ -1,15 +1,15 @@
 <template>
-  <div>
+  <div class="outertd">
     <div class="yv-header">
       <div class="yv-header-content">
-        <img id="header-img" src="../assets/1.png" >
+        <router-link to="/indexindex"><img id="header-img" src="../assets/1.png" ></router-link>
         <div class="input-with-select" style="margin-top: 15px;width:300px;margin-top: -10px;margin-left: 300px">
           <el-input placeholder="请输入内容" v-model="input5" class="input-with-select">
             <el-button slot="append" icon="el-icon-search" style="background-color: crimson;color: aliceblue">搜索</el-button>
           </el-input>
         </div>
         <div class="wodeshujia" style="margin-top: -10px;margin-left: 100px">
-        <a href="//me.qidian.com/bookCase/bookCase.aspx?caseId=-2" target="_blank" data-eid="qd_A14" id="numero2" style="color: black"><img src="../assets/w1.png">我的书架</a>
+          <router-link to="/bookcenter/bookrack" target="_blank" data-eid="qd_A14" id="numero2" style="color: black"><img src="../assets/w1.png">我的书架</router-link>
         </div>
           <div class="header-login-regist">
             <div class="header-login"><a href="//me.qidian.com/bookCase/bookCase.aspx?caseId=-2" target="_blank">登录</a></div>
@@ -42,18 +42,24 @@
 </script>
 
 <style scoped>
+  .outertd{
+    width: 100%;
+    height: 45px;
+    margin-top: 50px;
+  }
   .wodeshujia a img{
     float: left;
     padding-left: 20px;
   }
   .yv-header{
     margin-top: -20px;
+
   }
 #header-img,.input-with-select,.wodeshujia,.header-login,.header-splid{
   float: left;
 }
 #header-img{
-  margin-left: 40px;
+  margin-left: 60px;
   margin-top: -25px;
 }
 .header-login-regist{

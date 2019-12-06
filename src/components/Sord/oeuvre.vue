@@ -1,5 +1,45 @@
 <template>
-  <div id="app">
+
+  <div class="outerd" >
+    <div class="laf1">
+      <div class="oeuvre_wrapper">
+        <el-menu
+          :default-active="activeIndex2"
+          class="el-menu-demo"
+          mode="horizontal"
+          @select="handleSelect"
+          background-color="#545c64"
+          text-color="#fff"
+          active-text-color="#ffd04b">
+          <el-row :gutter="20" style=" margin-left: 0px;  margin-right: 0px;height: 50px;">
+            <el-col :span="5" :offset="0">
+              <el-menu-item index="1">作品分类</el-menu-item>
+            </el-col>
+            <el-col :span="3" :offset="0">
+              <router-link to="/oeuvre">
+                <el-menu-item index="1">全部作品</el-menu-item>
+              </router-link>
+            </el-col>
+            <el-col :span="3" :offset="1">
+              <el-menu-item index="1">排行</el-menu-item>
+            </el-col>
+            <el-col :span="3" :offset="0">
+              <el-menu-item index="1">完本</el-menu-item>
+            </el-col>
+            <el-col :span="3" :offset="0">
+              <el-menu-item index="1">免费</el-menu-item>
+            </el-col>
+            <el-col :span="3" :offset="0">
+              <el-menu-item index="1">作家专区</el-menu-item>
+            </el-col>
+            <el-col :span="3" :offset="0">
+              <el-menu-item index="1">客户端</el-menu-item>
+            </el-col>
+          </el-row>
+        </el-menu>
+
+      </div>
+    </div>
     <div class="oeuvre-center">
       <el-row class="tac">
         <el-col :span="5">
@@ -11,8 +51,11 @@
 
             <table cellspacing="0" class="nangao">
               <ul class="myul" v-for="(items,index) in classes">
-                <div  class="left11" style="font-size: 14px">
-                <li @click="fun1(items)" class="myli" style="margin-left: 20px;width:42px;height:14px;padding: 5px;border: 1px solid #e6e6e6">{{items}}</li>
+                <div class="left11" style="font-size: 14px">
+                  <li @click="fun1(items.type_name)" class="myli"
+                      style="margin-left: 20px;width:42px;height:14px;padding: 5px;border: 1px solid #e6e6e6">
+                    {{items.type_name}}
+                  </li>
                 </div>
               </ul>
             </table>
@@ -26,7 +69,10 @@
             <div>
               <table cellspacing="0" class="nangao">
                 <ul class="my1ul" v-for="(itams,index) in condition">
-                  <li @click="fun2(itams)" class="my1li" style="margin-left: 20px;width:42px;height:14px;padding: 5px;border: 1px solid #e6e6e6">{{itams}}</li>
+                  <li @click="fun2(itams)" class="my1li"
+                      style="margin-left: 20px;width:42px;height:14px;padding: 5px;border: 1px solid #e6e6e6">
+                    {{itams}}
+                  </li>
                 </ul>
               </table>
 
@@ -40,7 +86,10 @@
             <div>
               <table cellspacing="0" class="nangao">
                 <ul class="my1ul" v-for="(itams,index) in nature">
-                  <li @click="fun3(itams)" class="my1li" style="margin-left: 20px;width:42px;height:14px;padding: 5px;border: 1px solid #e6e6e6">{{itams}}</li>
+                  <li @click="fun3(itams)" class="my1li"
+                      style="margin-left: 20px;width:42px;height:14px;padding: 5px;border: 1px solid #e6e6e6">
+                    {{itams}}
+                  </li>
                 </ul>
               </table>
 
@@ -53,30 +102,29 @@
             <ul class="all-img-list cf">
               <li data-rid="1">
                 <div class="book-img-box" @click="fun4(items)">
-                  <img :src=items.imgs width="102px" height="136px" class="yangshi"/>
+                  <img :src=items.books_pic width="102px" height="136px" class="yangshi"/>
                 </div>
                 <div class="book-mid-info">
-                  <h4 @click="fun4(items)" class="yangshi">{{items.name}}</h4>
-                  <p class="name">{{items.writer}} | {{items.genre}} | {{items.state}}</p>
-                  <p class="intro">{{items.describe}}</p>
-                  <p class="update">{{items.num}}万字</p>
+                  <h4 @click="fun4(items)" class="yangshi">{{items.books_name}}</h4>
+                  <p class="name">{{items.books_author}} | {{items.books_author}} | 完结</p>
+                  <p class="intro">{{items.books_describe}}</p>
+                  <p class="update">{{items.books_count}}字</p>
                 </div>
               </li>
             </ul>
-
           </div>
 
         </el-col>
-        <div class="block">
-          <span class="demonstration">下一页更精彩哦</span>
-          <el-pagination
-            layout="prev, pager, next"
-            :total="total" :page-size="this.params.size" :current-page="this.params.page"
-            v-on:current-change="changePage">
-          </el-pagination>
-        </div>
+
       </el-row>
+
+      <el-pagination
+        layout="prev, pager, next"
+        :total="total" :page-size="this.params.size" :current-page="this.params.page"
+        v-on:current-change="changePage">
+      </el-pagination>
     </div>
+
   </div>
 </template>
 <script>
@@ -85,7 +133,20 @@
   export default {
     data() {
       return {
-        book: [{
+        book: [
+          /*{
+            books_id:'',
+            books_name:'',
+            books_vip:'',
+            books_pic:'',
+            books_type:'',
+            books_url:'',
+            books_status:'',
+            books_author:'',
+            books_describe:'',
+            books_count:'',
+          }*/
+          /*{
           id: 1,
           imgs: 'https://bookcover.yuewen.com/qdbimg/349573/1004608738/150',
           name: '圣墟',
@@ -103,36 +164,33 @@
           state: '连载',
           describe: '某天，宋书航意外加入了一个仙侠中二病资深患者的交流群，里面的群友们都以‘道友’相称，群名片都是各种府主、洞主、真人、天师。连群主走失的宠物犬都称为大妖犬离家出走。整天聊的是炼丹、闯秘境、炼功经验啥的。',
           num: '819.98',
-        }, {
-          id: 3,
-          imgs: 'https://bookcover.yuewen.com/qdbimg/349573/3602691/150',
-          name: '修真聊天群',
-          writer: '圣骑士的传说',
-          genre: '都市·都市异能',
-          state: '连载',
-          describe: '某天，宋书航意外加入了一个仙侠中二病资深患者的交流群，里面的群友们都以‘道友’相称，群名片都是各种府主、洞主、真人、天师。连群主走失的宠物犬都称为大妖犬离家出走。整天聊的是炼丹、闯秘境、炼功经验啥的。',
-          num: '819.98',
-        }],
+        }*/],
         params: {
-          size: 2,
+          size: 10,
           page: 1,
         },
+        total: 100,
         classes: [
-          "全部", "玄幻", "奇幻", "武侠", "仙侠", "都市", "现实", "军事", "历史", "游戏", "体育", "科幻", "悬疑", "轻小说", "短篇"]
+          /* "全部", "玄幻", "奇幻", "武侠", "仙侠", "都市", "现实", "军事", "历史", "游戏", "体育", "科幻", "悬疑", "轻小说", "短篇"*/
+        ]
         ,
         condition: ["全部", "连载", "完本"],
         nature: ["全部", "免费", "VIP"],
-        total: 10,
       }
     },
     methods: {
       changePage: function (page) {
         this.params.page = page;
+
         this.findAll();
+        // this.fun1(items);
+
+
       },
       findAll: function () {
         var _this = this;
-        axios.get("" + this.params.size + "/" + this.params.page).then(function (res) {
+        axios.get("api/book/findAll/" + this.params.page + "/" + this.params.size).then(function (res) {
+          console.log(res.data);
           _this.book = res.data.list;
           _this.total = res.data.total
         })
@@ -147,26 +205,49 @@
       },
       //根据属性查
       fun3: function (items) {
+        // (".left11").removeClass("myli");
+        // this.addClass("myli");
         alert(items);
-        (".left11").removeClass("myli");
-        this.addClass("myli");
       },
       //点击图片和书名跳转页面
       fun4: function (items) {
-        alert(items.id)
+        alert(items.books_id)
+      },
+      fun5(){
+        axios.get("api/book/booktype").then(res=> {
+          console.log(res.data);
+          this.classes = res.data;
+        })
       }
+    },
+    mounted() {
+      this.fun5();
+      this.findAll();
     }
   }
 </script>
 <style>
-  .myli:hover{
-    background:black;
+  .oeuvre_wrapper {
+    overflow: hidden;
+    width: 1200px;
+    height: 55px;
+    margin: 0 auto;
+  }
+
+  .outerd {
+    width: 100%;
+  }
+
+  .myli:hover {
+    background: black;
     color: aliceblue;
   }
-  .my1li:hover{
-    background:black;
+
+  .my1li:hover {
+    background: black;
     color: aliceblue;
   }
+
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -180,6 +261,7 @@
     width: 1200px;
     margin-right: auto;
     margin-left: auto;
+    margin-top: 10px;
   }
 
   .cf {
@@ -203,7 +285,7 @@
 
   .book-img-text .all-img-list li {
     float: left;
-    width: 450px;
+    width: 455px;
   }
 
   .book-img-text li:first-child {
@@ -234,7 +316,7 @@
   }
 
   .book-img-text .all-img-list li .book-mid-info {
-    width: 240px;
+    width: 300px;
   }
 
   .book-img-text .book-mid-info {
@@ -318,11 +400,21 @@
     display: block;
 
   }
-  .yangshi{
+
+  .yangshi {
     cursor: pointer;
   }
-  .name{
+
+  .name {
     margin-bottom: 10px
   }
 
+  .el-menu-item, .el-submenu__title {
+    height: 50px;
+    line-height: 50px;
+    position: relative;
+    -webkit-box-sizing: border-box;
+    white-space: nowrap;
+    list-style: none;
+  }
 </style>

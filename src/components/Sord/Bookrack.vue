@@ -39,7 +39,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <div class="block">
+    <div class="blocks">
       <el-pagination
         layout="prev, pager, next"
         :total="total" :page-size="this.params.size" :current-page="this.params.page" v-on:current-change="changePage">

@@ -20,7 +20,7 @@ import oeuvre from '@/components/Sord/oeuvre'
 import bookrack from '@/components/Sord/Bookrack'
 import bookcenter from '@/components/Sord/Bookcenter'
 import bookpay from '@/components/Sord/Bookpay'
-import bookseek from '@/components/Sord/Bookseek'
+import bookmeber from '@/components/Sord/Bookmeber'
 
 import Home from '../pages/home'
 import Search from '../pages/search'
@@ -33,6 +33,7 @@ Vue.use(Router)
 export default new Router({
   routes: [
     /*张浩*/
+
     {
       path: '/indexindex',
       name: 'indexindex',
@@ -107,7 +108,28 @@ export default new Router({
     {
       path: '/oeuvre',
       name: 'oeuvre',
-      component: oeuvre
+      component: oeuvre,
+      meta: {
+        keep: true
+      }
+
+    }
+    ,{
+      path: '/bookcenter',
+      name: 'bookcenter',
+      component: bookcenter,
+      children:[
+        {path: 'bookrack',name: 'bookrack',component: bookrack}
+      ]
+    },{
+      path: '/bookpay',
+      name: 'bookpay',
+      component: bookpay
+    },
+    {
+      path: '/bookmeber',
+      name: 'bookmeber',
+      component: bookmeber
     },
     /*虎*/
     {
@@ -141,21 +163,6 @@ export default new Router({
       path:'/manage',
       name:'manage',
       component:manage
-    },{
-      path: '/bookcenter',
-      name: 'bookcenter',
-      component: bookcenter,
-      children:[
-        {path: 'bookrack',name: 'bookrack',component: bookrack}
-      ]
-    },{
-      path: '/bookpay',
-      name: 'bookpay',
-      component: bookpay
-    },{
-      path: '/bookseek',
-      name: 'bookseek',
-      component: bookseek
     }
   ]
 })
