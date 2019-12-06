@@ -54,7 +54,10 @@
     data() {
       return {
         activeIndex: '1',
-        activeIndex2: '1'
+        activeIndex2: '1',
+        user:{id:1,
+        name:'zhang'
+        }
       };
     },
     methods: {

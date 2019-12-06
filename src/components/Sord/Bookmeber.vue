@@ -17,29 +17,18 @@
         <div class="pay-method">
           <el-form ref="form" :model="sizeForm" label-width="80px" size="mini">
             <el-form-item label="用户">
-              <el-input disabled v-model="sizeForm.name">{{sizeForm.name}}</el-input>
+              <el-input disabled v-model="id">{{sizeForm.id}}</el-input>
             </el-form-item>
             <el-form-item label="账户余额">
-              <el-input disabled v-model="sizeForm.pay">{{sizeForm.pay}}</el-input>
+              <el-input disabled v-model="pay">{{sizeForm.pay}}</el-input>
             </el-form-item>
 
-            <el-form-item label="充值方式">
+            <el-form-item label="充值时间">
               <el-radio-group v-model="sizeForm.a" size="medium">
-                <el-radio border label="支付宝"></el-radio>
-                <el-radio border label="微信"></el-radio>
-                <el-radio border label="QQ钱包"></el-radio>
-                <el-radio border label="银联"></el-radio>
-                <el-radio border label="手机卡充值"></el-radio>
-              </el-radio-group>
-            </el-form-item>
-            <el-form-item label="充值金额">
-              <el-radio-group v-model="sizeForm.b" size="medium">
-                <el-radio border label="10"></el-radio>
-                <el-radio border label="20"></el-radio>
-                <el-radio border label="30"></el-radio>
-                <el-radio border label="50"></el-radio>
-                <el-radio border label="100"></el-radio>
-
+                <el-radio border label="1个月"></el-radio>
+                <el-radio border label="3个月"></el-radio>
+                <el-radio border label="半年"></el-radio>
+                <el-radio border label="一年"></el-radio>
               </el-radio-group>
             </el-form-item>
             <el-form-item size="large">
@@ -63,15 +52,17 @@
           id: '1',
           name: 'zhang',
           pay: 120,
-          a: '',
-          b: ''
-        }
+          a: ''
+        },
+        id:'2',
+        pay:'200'
       }
     },
     methods: {
       onSubmit(sizeForm) {
-        alert(sizeForm.id + sizeForm.name + sizeForm.a + sizeForm.b);
-        axios.get("" + sizeForm.a + "/" + sizeForm.b + "/" + sizeForm.id + "/" + sizeForm.name).then(function (res) {
+        // var _value=this.value;
+        alert(sizeForm.a+sizeForm.id+sizeForm.pay);
+        axios.get("" + sizeForm.a  + "/" + sizeForm.id + "/" + sizeForm.name).then(function (res) {
 
         })
 

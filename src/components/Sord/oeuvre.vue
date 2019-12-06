@@ -1,6 +1,6 @@
 <template>
 
-  <div class="outerd">
+  <div class="outerd" >
     <div class="laf1">
       <div class="oeuvre_wrapper">
         <el-menu
@@ -16,7 +16,9 @@
               <el-menu-item index="1">作品分类</el-menu-item>
             </el-col>
             <el-col :span="3" :offset="0">
-              <router-link to="/oeuvre"><el-menu-item index="1">全部作品</el-menu-item></router-link>
+              <router-link to="/oeuvre">
+                <el-menu-item index="1">全部作品</el-menu-item>
+              </router-link>
             </el-col>
             <el-col :span="3" :offset="1">
               <el-menu-item index="1">排行</el-menu-item>
@@ -50,9 +52,9 @@
             <table cellspacing="0" class="nangao">
               <ul class="myul" v-for="(items,index) in classes">
                 <div class="left11" style="font-size: 14px">
-                  <li @click="fun1(items)" class="myli"
+                  <li @click="fun1(items.type_name)" class="myli"
                       style="margin-left: 20px;width:42px;height:14px;padding: 5px;border: 1px solid #e6e6e6">
-                    {{items}}
+                    {{items.type_name}}
                   </li>
                 </div>
               </ul>
@@ -100,28 +102,29 @@
             <ul class="all-img-list cf">
               <li data-rid="1">
                 <div class="book-img-box" @click="fun4(items)">
-                  <img :src=items.imgs width="102px" height="136px" class="yangshi"/>
+                  <img :src=items.books_pic width="102px" height="136px" class="yangshi"/>
                 </div>
                 <div class="book-mid-info">
-                  <h4 @click="fun4(items)" class="yangshi">{{items.name}}</h4>
-                  <p class="name">{{items.writer}} | {{items.genre}} | {{items.state}}</p>
-                  <p class="intro">{{items.describe}}</p>
-                  <p class="update">{{items.num}}万字</p>
+                  <h4 @click="fun4(items)" class="yangshi">{{items.books_name}}</h4>
+                  <p class="name">{{items.books_author}} | {{items.books_author}} | 完结</p>
+                  <p class="intro">{{items.books_describe}}</p>
+                  <p class="update">{{items.books_count}}字</p>
                 </div>
               </li>
             </ul>
           </div>
+
         </el-col>
-        <div class="blocks">
-          <span class="demonstration">下一页更精彩哦</span>
-          <el-pagination
-            layout="prev, pager, next"
-            :total="total" :page-size="this.params.size" :current-page="this.params.page"
-            v-on:current-change="changePage">
-          </el-pagination>
-        </div>
+
       </el-row>
+
+      <el-pagination
+        layout="prev, pager, next"
+        :total="total" :page-size="this.params.size" :current-page="this.params.page"
+        v-on:current-change="changePage">
+      </el-pagination>
     </div>
+
   </div>
 </template>
 <script>
@@ -130,7 +133,20 @@
   export default {
     data() {
       return {
-        book: [{
+        book: [
+          /*{
+            books_id:'',
+            books_name:'',
+            books_vip:'',
+            books_pic:'',
+            books_type:'',
+            books_url:'',
+            books_status:'',
+            books_author:'',
+            books_describe:'',
+            books_count:'',
+          }*/
+          /*{
           id: 1,
           imgs: 'https://bookcover.yuewen.com/qdbimg/349573/1004608738/150',
           name: '圣墟',
@@ -148,23 +164,15 @@
           state: '连载',
           describe: '某天，宋书航意外加入了一个仙侠中二病资深患者的交流群，里面的群友们都以‘道友’相称，群名片都是各种府主、洞主、真人、天师。连群主走失的宠物犬都称为大妖犬离家出走。整天聊的是炼丹、闯秘境、炼功经验啥的。',
           num: '819.98',
-        }, {
-          id: 3,
-          imgs: 'https://bookcover.yuewen.com/qdbimg/349573/3602691/150',
-          name: '修真聊天群',
-          writer: '圣骑士的传说',
-          genre: '都市·都市异能',
-          state: '连载',
-          describe: '某天，宋书航意外加入了一个仙侠中二病资深患者的交流群，里面的群友们都以‘道友’相称，群名片都是各种府主、洞主、真人、天师。连群主走失的宠物犬都称为大妖犬离家出走。整天聊的是炼丹、闯秘境、炼功经验啥的。',
-          num: '819.98',
-        }],
+        }*/],
         params: {
-          size: 2,
+          size: 10,
           page: 1,
         },
-        total: 10,
+        total: 100,
         classes: [
-          "全部", "玄幻", "奇幻", "武侠", "仙侠", "都市", "现实", "军事", "历史", "游戏", "体育", "科幻", "悬疑", "轻小说", "短篇"]
+          /* "全部", "玄幻", "奇幻", "武侠", "仙侠", "都市", "现实", "军事", "历史", "游戏", "体育", "科幻", "悬疑", "轻小说", "短篇"*/
+        ]
         ,
         condition: ["全部", "连载", "完本"],
         nature: ["全部", "免费", "VIP"],
@@ -173,19 +181,22 @@
     methods: {
       changePage: function (page) {
         this.params.page = page;
+
         this.findAll();
         // this.fun1(items);
+
+
       },
       findAll: function () {
         var _this = this;
-        axios.get("" + this.params.size + "/" + this.params.page).then(function (res) {
+        axios.get("api/book/findAll/" + this.params.page + "/" + this.params.size).then(function (res) {
+          console.log(res.data);
           _this.book = res.data.list;
           _this.total = res.data.total
         })
       },
       // 根据分类查
       fun1: function (items) {
-
         alert(items)
       },
       //根据状态查
@@ -196,13 +207,22 @@
       fun3: function (items) {
         // (".left11").removeClass("myli");
         // this.addClass("myli");
-
         alert(items);
       },
       //点击图片和书名跳转页面
       fun4: function (items) {
-        alert(items.id)
+        alert(items.books_id)
+      },
+      fun5(){
+        axios.get("api/book/booktype").then(res=> {
+          console.log(res.data);
+          this.classes = res.data;
+        })
       }
+    },
+    mounted() {
+      this.fun5();
+      this.findAll();
     }
   }
 </script>
@@ -388,6 +408,7 @@
   .name {
     margin-bottom: 10px
   }
+
   .el-menu-item, .el-submenu__title {
     height: 50px;
     line-height: 50px;

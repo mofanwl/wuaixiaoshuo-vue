@@ -434,7 +434,7 @@
   .grid-content {
     min-height: 50px;
     /*padding-top: 2px;*/
-    line-height: 50px;
+    /*line-height: 50px;*/
   }
   .color-type_0 a{
     color: black;
@@ -527,5 +527,9 @@
   li, ol, ul {
     list-style: none outside none;
   }
-
+ #lay1 .grid-content {
+    min-height: 50px;
+    /* padding-top: 2px; */
+    line-height: 50px;
+  }
 </style>
