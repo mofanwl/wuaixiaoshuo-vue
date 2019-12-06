@@ -33,7 +33,7 @@ Vue.use(Router)
 export default new Router({
   routes: [
     /*张浩*/
-
+    
     {
       path: '/indexindex',
       name: 'indexindex',
@@ -42,22 +42,22 @@ export default new Router({
         keep: true
       }
     }
-    ,{
+    , {
       path: '/search',
       name: 'search',
       component: search,
       meta: {
         keep: false
       }
-    },{
+    }, {
       path: '/type_search',
       name: 'type_search',
       component: type_search,
       meta: {
         keep: false
       }
-    } ,
-  /*孔*/
+    },
+    /*孔*/
     {
       path: '/login',
       name: 'login',
@@ -114,14 +114,14 @@ export default new Router({
       }
 
     }
-    ,{
+    , {
       path: '/bookcenter',
       name: 'bookcenter',
       component: bookcenter,
-      children:[
-        {path: 'bookrack',name: 'bookrack',component: bookrack}
+      children: [
+        {path: 'bookrack', name: 'bookrack', component: bookrack}
       ]
-    },{
+    }, {
       path: '/bookpay',
       name: 'bookpay',
       component: bookpay
@@ -136,7 +136,7 @@ export default new Router({
       path: '/home',
       name: 'Home',
       component: Home,
-      children:[
+      children: [
         {
           name: "Zuopin",
           path: "zuopin",
@@ -160,9 +160,9 @@ export default new Router({
       component: Kong
     },
     {
-      path:'/manage',
-      name:'manage',
-      component:manage
+      path: '/manage',
+      name: 'manage',
+      component: manage
     }
   ]
 })
