@@ -1,6 +1,6 @@
 <template>
     <div>
-        请更改为你要跳转的页面
+        瞎JB点啥呢！
     </div>
 </template>
 
