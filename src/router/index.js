@@ -22,12 +22,15 @@ import bookcenter from '@/components/Sord/Bookcenter'
 import bookpay from '@/components/Sord/Bookpay'
 import bookmeber from '@/components/Sord/Bookmeber'
 
+import myself from '@/components/show/myself'
+import portrait from '@/components/show/portrait'
+import property from '@/components/show/property'
+import setting from '@/components/show/setting'
 import Home from '../pages/home'
 import Search from '../pages/search'
 import Kong from '../pages/kong'
 import Mulu from '../pages/mulu'
 import Zuopin from '../pages/zuopin'
-import manage from '../pages/manage'
 Vue.use(Router)
 
 export default new Router({
@@ -160,9 +163,24 @@ export default new Router({
       component: Kong
     },
     {
-      path: '/manage',
-      name: 'manage',
-      component: manage
+      path:'/myself',
+      name:'myself',
+      component:myself
+    },
+    {
+      path:'/portrait',
+      name:'portrait',
+      component:portrait
+    },
+    {
+      path:'/property',
+      name:'property',
+      component:property
+    },
+    {
+      path:'/setting',
+      name:'setting',
+      component:setting
     }
   ]
 })
