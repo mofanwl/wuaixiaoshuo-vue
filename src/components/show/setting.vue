@@ -51,7 +51,7 @@
                   <router-link to="/myself">首页</router-link>
                 </el-menu-item>
                 <el-menu-item index="1-2">
-                  <router-link to="/kong">账务中心</router-link>
+                  <router-link to="/property">账务中心</router-link>
                 </el-menu-item>
                 <el-menu-item index="1-3">
                   <router-link to="/kong">我的票夹</router-link>
@@ -120,7 +120,7 @@
                 <div id="qddate" class="block">
                   <p style="color: darkgray">生日&nbsp;&nbsp;&nbsp;&nbsp;</p>
                   <el-date-picker
-                    v-model="value1"
+                    v-model="user.birthday"
                     type="date"
                     placeholder="选择日期"
                     style="float: left;margin-top: 5px">
@@ -131,11 +131,11 @@
                   <el-dropdown size="medium" split-button type="primary" style="float: left;margin-top: 5px">
                     {{user.city}}
                     <el-dropdown-menu slot="dropdown">
-                      <el-dropdown-item>黄金糕</el-dropdown-item>
-                      <el-dropdown-item>狮子头</el-dropdown-item>
-                      <el-dropdown-item>螺蛳粉</el-dropdown-item>
-                      <el-dropdown-item>双皮奶</el-dropdown-item>
-                      <el-dropdown-item>蚵仔煎</el-dropdown-item>
+                      <el-dropdown-item>西安</el-dropdown-item>
+                      <el-dropdown-item>上海</el-dropdown-item>
+                      <el-dropdown-item>重庆</el-dropdown-item>
+                      <el-dropdown-item>三亚</el-dropdown-item>
+                      <el-dropdown-item>天津</el-dropdown-item>
                     </el-dropdown-menu>
                   </el-dropdown>
                 </div>
@@ -144,7 +144,7 @@
                   <el-input
                     type="textarea"
                     placeholder="可以简单的描述自己"
-                    v-model="textarea"
+                    v-model="user.myself"
                     maxlength="140"
                     show-word-limit
                     autosize
@@ -155,7 +155,7 @@
                 <button
                   style="color:#fff;background-color: #bf2c24;
                   min-width: 70px;float: left;margin-top: 30px;margin-left: 50px"
-                >提交⑨</button>
+                >提交</button>
               </el-tab-pane>
             </el-tabs>
           </div>

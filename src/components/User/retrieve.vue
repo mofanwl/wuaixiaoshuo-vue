@@ -349,6 +349,7 @@ a {
   .header {
     height: 80px;
     border-bottom: 1px solid #DFDFDF;
+    margin-top: 50px;
   }
   .login-center{
     width: 990px;

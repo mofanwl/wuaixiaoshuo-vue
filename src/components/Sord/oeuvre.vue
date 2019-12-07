@@ -1,6 +1,6 @@
 <template>
 
-  <div class="outerd" >
+  <div class="outerd">
     <div class="laf1">
       <div class="oeuvre_wrapper">
         <el-menu
@@ -68,10 +68,10 @@
             </div>
             <div>
               <table cellspacing="0" class="nangao">
-                <ul class="my1ul" v-for="(itams,index) in condition">
-                  <li @click="fun2(itams)" class="my1li"
+                <ul class="my1ul" v-for="(items,index) in condition">
+                  <li @click="fun2(items)" class="my1li"
                       style="margin-left: 20px;width:42px;height:14px;padding: 5px;border: 1px solid #e6e6e6">
-                    {{itams}}
+                    {{items.status_name}}
                   </li>
                 </ul>
               </table>
@@ -85,10 +85,10 @@
             </div>
             <div>
               <table cellspacing="0" class="nangao">
-                <ul class="my1ul" v-for="(itams,index) in nature">
-                  <li @click="fun3(itams)" class="my1li"
+                <ul class="my1ul" v-for="(items,index) in nature">
+                  <li @click="fun3(items)" class="my1li"
                       style="margin-left: 20px;width:42px;height:14px;padding: 5px;border: 1px solid #e6e6e6">
-                    {{itams}}
+                    {{items.vip_name}}
                   </li>
                 </ul>
               </table>
@@ -101,12 +101,14 @@
           <div class="book-img-text" v-for="(items,index) in book">
             <ul class="all-img-list cf">
               <li data-rid="1">
-                <div class="book-img-box" @click="fun4(items)">
-                  <img :src=items.books_pic width="102px" height="136px" class="yangshi"/>
+                <div class="book-img-box">
+                  <router-link to="/home"><img :src=items.books_pic width="102px" height="136px" class="yangshi"/>
+                  </router-link>
                 </div>
                 <div class="book-mid-info">
-                  <h4 @click="fun4(items)" class="yangshi">{{items.books_name}}</h4>
-                  <p class="name">{{items.books_author}} | {{items.books_author}} | 完结</p>
+                  <router-link to="/home"><h4 class="yangshi">{{items.books_name}}</h4></router-link>
+                  <p class="name">{{items.books_author}} | {{items.booksVip==1?"免费":"VIP"}} |
+                    {{items.booksStatus==1?"连载中":"已完结"}}</p>
                   <p class="intro">{{items.books_describe}}</p>
                   <p class="update">{{items.books_count}}字</p>
                 </div>
@@ -174,8 +176,8 @@
           /* "全部", "玄幻", "奇幻", "武侠", "仙侠", "都市", "现实", "军事", "历史", "游戏", "体育", "科幻", "悬疑", "轻小说", "短篇"*/
         ]
         ,
-        condition: ["全部", "连载", "完本"],
-        nature: ["全部", "免费", "VIP"],
+        condition: [/*"全部", "连载", "完本"*/],
+        nature: [/*"全部", "免费", "VIP"*/],
       }
     },
     methods: {
@@ -184,6 +186,8 @@
 
         this.findAll();
         this.fun1(items);
+        this.fun2(items);
+        this.fun3(items);
 
 
       },
@@ -198,7 +202,7 @@
       // 根据分类查
       fun1: function (items) {
         var _this = this;
-        axios.get("api/book/findAllByBooksType/" +items.type_id+"/"+ this.params.page + "/" + this.params.size).then(function (res) {
+        axios.get("api/book/findAllByBooksType/" + items.type_id + "/" + this.params.page + "/" + this.params.size).then(function (res) {
           console.log(res.data);
           _this.book = res.data.list;
           _this.total = res.data.total
@@ -206,28 +210,63 @@
       },
       //根据状态查
       fun2: function (items) {
-        alert(items)
+        alert(items.status_id)
+        var _this = this;
+        axios.get("api/book/findAllByBooksStatus/" + items.status_id + "/" + this.params.page + "/" + this.params.size).then(function (res) {
+          console.log(res.data);
+          _this.book = res.data.list;
+          _this.total = res.data.total
+        })
+
       },
       //根据属性查
       fun3: function (items) {
-        // (".left11").removeClass("myli");
-        // this.addClass("myli");
-        alert(items);
+        alert(items.vip_id)
+        var _this = this;
+        axios.get("api/book/findAllByBooksVip/" + items.vip_id + "/" + this.params.page + "/" + this.params.size).then(function (res) {
+          console.log(res.data);
+          _this.book = res.data.list;
+          _this.total = res.data.total
+        })
       },
       //点击图片和书名跳转页面
       fun4: function (items) {
-        alert(items.books_id)
+
+
       },
-      fun5(){
-        axios.get("api/book/booktype").then(res=> {
+      //查询分类列表
+      fun5() {
+        axios.get("api/book/booktype").then(res => {
           console.log(res.data);
           this.classes = res.data;
+        })
+      },
+      //连载，完本
+      fun6() {
+        axios.get("api/book/selectAllStatus").then(res => {
+          console.log(res.data);
+          this.condition = res.data;
+        })
+      },
+      //免费和VIP
+      fun7() {
+        axios.get("api/book/selectAllBookVip").then(res => {
+          console.log(res.data);
+          this.nature = res.data;
         })
       }
     },
     mounted() {
-      this.fun5();
       this.findAll();
+      this.fun5();
+      this.fun6();
+      this.fun7();
+      this.fun1();
+      this.fun2();
+      this.fun3();
+      this.fun4();
+
+
     }
   }
 </script>

@@ -50,7 +50,7 @@
               <router-link to="/myself">首页</router-link>
             </el-menu-item>
             <el-menu-item index="1-2">
-              <router-link to="/kong">账务中心</router-link>
+              <router-link to="/property">账务中心</router-link>
             </el-menu-item>
             <el-menu-item index="1-3">
               <router-link to="/kong">我的票夹</router-link>

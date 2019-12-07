@@ -1,6 +1,6 @@
 <template>
     <div class="nav">
-        <router-link to="/kong">免费试读</router-link>
+        <a :href="book.url">免费试读</a>
         <router-link to="/kong">加入书架</router-link>
         <router-link to="/kong">投票互动</router-link>
         <router-link to="/kong">手机App阅读</router-link>
@@ -9,7 +9,20 @@
 
 <script>
 export default {
-    
+  data(){
+    return{
+      book:{
+        url:"http://t.mofan.la/%E5%B0%8F%E8%AF%B4/%E4%BB%99%E4%BE%A0/%E4%B8%80%E5%93%81%E4%BF%AE%E4%BB%99/%E7%AC%AC%E4%B8%80%E7%AB%A0%EF%BC%9A%E8%A7%A3%E5%BF%A7%E6%9D%82%E8%B4%A7%E9%93%BA.html"
+      }
+    }
+  },
+  mounted() {
+    _this = this;
+    axios.get("").then(function (res) {
+      _this.book = res.data.list;
+    })
+  }
+
 }
 </script>
 

@@ -53,7 +53,7 @@
               <router-link to="/property">账务中心</router-link>
             </el-menu-item>
             <el-menu-item index="1-3">
-              <router-link to="/kong">我的票夹</router-link>
+              <router-link to="/kong">会员中心</router-link>
             </el-menu-item>
             <el-menu-item index="1-4">
               <router-link to="/kong">我的红包</router-link>
@@ -80,7 +80,7 @@
           <el-menu-item-group>
             <template slot="title"></template>
             <el-menu-item index="1-10">
-              <router-link to="/kong">会员中心</router-link>
+              <router-link to="/kong">票夹</router-link>
             </el-menu-item>
             <el-menu-item index="1-11">
               <router-link to="/kong">安全中心</router-link>

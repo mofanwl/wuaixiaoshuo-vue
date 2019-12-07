@@ -114,6 +114,7 @@
     height: 60px;
     margin-bottom: 12px;
     background: #fff;
+    /*margin-top: 60px;*/
   }
 
   .pay-center {

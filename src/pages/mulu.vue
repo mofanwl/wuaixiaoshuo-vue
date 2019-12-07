@@ -1,27 +1,41 @@
 <template>
-    <div class="mulu">
-      <iframe src="http://t.mofan.la/小说/仙侠/一品修仙/ms一品修仙.html" width="100%;" height="100%"></iframe>
-    </div>
+  <div class="mulu">
+    <iframe :src="book.url" width="100%;" height="100%"></iframe>
+  </div>
 </template>
 
 <script>
 
-export default {
-
+  export default {
+    data() {
+      return {
+        book: {
+          url: "http://t.mofan.la/小说/仙侠/一品修仙/ms一品修仙.html"
+        }
+      }
+    },
+  mounted()
+  {
+    _this = this;
+    axios.get("").then(function (res) {
+      _this.book = res.data.list;
+    })
+  }
+  ,
   methods:{
     // fun:$(function(){
     //     $("#dh").load("http://www.baidu.com")
     // })
   }
-}
+  }
 </script>
 <style scoped>
 
-.mulu{
+  .mulu {
     width: 990px;
     height: 600px;
     background: #ccc;
     margin: 160px auto 0;
     z-index: 999;
-}
+  }
 </style>
