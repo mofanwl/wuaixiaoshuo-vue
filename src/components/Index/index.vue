@@ -369,7 +369,6 @@
       }*/
     },
     mounted() {
-
       this.findAll();
       axios.get("api/book/selectAll").then(res => {
         //alert(this.$route.query.scc)

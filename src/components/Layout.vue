@@ -14,21 +14,21 @@
           <a @click="toShujia" target="_blank" data-eid="qd_A14" id="numero2" style="color: black"><img
             src="../assets/w1.png">我的书架</a>
         </div>
-        <div class="header-login-regist">
+        <!--<div class="header-login-regist">
           <div class="header-login"><a @click="toLogin" class="el-icon-user-solid">登录</a></div>
           <div class="header-splid">|</div>
           <div class="header-login"><a @click="toRegist" target="_blank" class="el-icon-user">注册</a></div>
-        </div>
+        </div>-->
         <!--档登陆成功后，显示用户名且去掉登录和注册按钮，显示用户名-->
-        <!--<div class="more-side">
+        <div class="header-login-regist">
           <ul v-if="!showname">
             <div class="header-login"><a @click="toLogin" class="el-icon-user-solid">登录</a></div>
             <div class="header-splid">|</div>
               <div class="header-login"><a @click="toRegist" target="_blank" class="el-icon-user">注册</a>
               </div>
           </ul>
-          <span>{{user.user_name}}</span>
-          </div>-->
+          <span v-if="!showname1">欢迎：<a @click="toMyself">振虎总裁</a></span>
+          </div>
         </div>
 
       </div>
@@ -42,7 +42,9 @@
     data() {
       return {
         input5: '',
-        select: ''
+        select: '',
+        showname:false,
+        showname1:false
       }
     },
     methods: {
@@ -62,6 +64,10 @@
         alert("即将传送至我的书架")
         this.$router.push("/bookcenter/bookrack")
       },
+      /*带参（key:value）到达个人中心*/
+      toMyself:function(scop){
+        this.$router.push("/myself?uid="+scop)
+      },
       searchM: function (scop) {
         // alert(scop);
         this.$router.push('/search?scc=' + scop)
@@ -72,6 +78,15 @@
     },
     created: function () {
       this.$emit('public_footer', false)
+    },
+    mounted() {
+      if(1==0){
+this.showname=true;
+this.showname1=false;
+      }else {
+        this.showname=false;
+        this.showname1=true;
+      }
     }
   }
 </script>
@@ -107,7 +122,7 @@
 
   .header-login-regist {
     margin-top: 30px;
-    margin-left: 1100px;
+    margin-left: 1080px;
   }
 
   .wodeshujia a:hover {
