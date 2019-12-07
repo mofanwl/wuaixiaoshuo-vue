@@ -13,15 +13,29 @@
         </div>
         <div class="oreight">
             <img src="../assets/180.jpg">
-            <p>猫腻</p>
-            <p>阅文集团白金作家，超人气玄幻作者，作品文学性很强，2015中国原创文学风云榜前十。</p>
+            <p>{{writer.name}}</p>
+            <p>{{writer.message}}</p>
         </div>
     </div>
 </template>
 
 <script>
+  import axios from 'axios'
 export default {
-    
+    data(){
+      return{
+        writer:{
+          name:"猫腻",
+          message:"阅文集团白金作家，超人气玄幻作者，作品文学性很强，2015中国原创文学风云榜前十。"
+        }
+      }
+    },
+  mounted() {
+    _this=this;
+    axios.get("").then(function (res) {
+      _this.writer=res.data.list;
+    })
+  }
 }
 </script>
 
