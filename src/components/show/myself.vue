@@ -103,7 +103,7 @@
               <router-link to="/property">账务中心</router-link>
             </el-menu-item>
             <el-menu-item index="1-3">
-              <router-link to="/bookmeber ">会员中心</router-link>
+              <router-link to="/bookmeber">会员中心</router-link>
             </el-menu-item>
             <el-menu-item index="1-4">
               <router-link to="/kong">我的红包</router-link>
