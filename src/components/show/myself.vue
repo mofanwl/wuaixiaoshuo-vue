@@ -202,10 +202,10 @@
           <router-link to="/kong">立即查看</router-link>
         </div>
         <div class="attention">
-          <p style="margin-top: 30px">我的书单</p>
-          <p>{{user.money}}&nbsp;&nbsp;个关注</p>
+          <p style="margin-top: 30px">我的会员</p>
+          <p>{{user.viptime}}到期</p>
           <el-divider></el-divider>
-          <router-link to="/kong">立即查看</router-link>
+          <router-link to="/bookmeber">充值</router-link>
         </div>
       </div>
       </div>
@@ -226,6 +226,7 @@
         user:{
           name:'游客233333333333333',
           money:'0',
+          viptime:"1970-1-1"
         }
       };
     },
