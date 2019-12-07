@@ -9,7 +9,7 @@
             <el-col :span="4"><div class="grid-content bg-purpley"><a @click="quanbu"><b>全部作品</b></a></div></el-col>
             <el-col :span="4"><div class="grid-content bg-purpley-light"><a><b>排行</b></a></div></el-col>
             <el-col :span="4"><div class="grid-content bg-purpley"><a><b>完本</b></a></div></el-col>
-            <el-col :span="4"><div class="grid-content bg-purpley-light"><a><b>免费</b></a></div></el-col>
+            <el-col :span="4"><div class="grid-content bg-purpley-light" @click="mianFei"><a><b>免费</b></a></div></el-col>
             <el-col :span="4"><div class="grid-content bg-purpley"><a class="el-icon-s-custom"><b>作家专区</b></a></div></el-col>
             <el-col :span="4"><div class="grid-content bg-purpley-light"><a class="el-icon-mobile"><b>客户端</b></a></div></el-col>
           </el-row></div></el-col>
@@ -111,23 +111,45 @@
     <br><br>
     <div id="lay3">
       <el-row :gutter="22">
-        <el-col :span="5"><div class="grid-content bg-purpley3;background: #fefdff"><el-row>
+        <el-col :span="5"><div class="grid-content bg-purpley3" style=" background: #fefdff;overflow-x:hidden"><el-row>
           <el-col :span="12"><div style="margin-top:-20px"><h3>本周强推</h3></div></el-col>
           <el-col :span="10"><div class="grid-content bg-purple-light"><a href=""><h5>更多>></h5></a></div></el-col>
         </el-row><hr><el-table
-          :data="bookData"
-          style="width: 100%">
+          ref="filterTable"
+          :data="suiJi1"
+          style="width: 100%;height: 680px;"
+          @filter-change="filterChange">
           <el-table-column
-            prop="type"
-            width="70">
+            prop="type_name"
+            label="类型"
+            width="50">
           </el-table-column>
           <el-table-column
-            prop="name"
-            width="100">
+            prop="books_name"
+            label="书名"
+            width="95">
           </el-table-column>
           <el-table-column
-            prop="zuozhe"
+            prop="books_author"
+            label="作者"
+            width="60"
           >
+          </el-table-column>
+          <el-table-column
+            prop="vip_name"
+            width="45">
+            <template scope="scope">
+              <span v-if="scope.row.vip_name==='VIP'" style="color: red">VIP</span>
+              <span v-else style="color: green">免费</span>
+            </template>
+           <!-- prop="books_id"
+            label="编号"
+            v-if="show"
+            column-key="books_id"
+            :filters="type"
+            :filter-multiple='false'
+            filter-placement='right-end'
+          >-->
           </el-table-column></el-table></div></el-col>
 
         <el-col :span="13"><div class="grid-content bg-purpley3-light"><div class="el-header1"><h3>编辑推荐</h3></div><br><hr><el-container>
@@ -189,20 +211,26 @@
           <el-col :span="12"><div style="margin-top:-20px"><h3>三江·网文新风</h3></div></el-col>
           <el-col :span="10"><div class="grid-content bg-purple-light"><a href=""><h5>更多>></h5></a></div></el-col>
         </el-row><hr><el-table
-          :data="bookData"
-          style="width: 100%">
+          ref="filterTable"
+          :data="sanJiang"
+          style="width: 100%"
+          @filter-change="filterChange">
           <el-table-column
-            prop="type"
-            width="70">
+            prop="type_name"
+            label="类型"
+            width="50">
           </el-table-column>
           <el-table-column
-            prop="name"
+            prop="books_name"
+            label="书名"
             width="100">
           </el-table-column>
           <el-table-column
-            prop="zuozhe"
+            prop="books_author"
+            label="作者"
           >
-          </el-table-column></el-table></div></el-col>
+          </el-table-column>
+          </el-table></div></el-col>
       </el-row>
     </div>
     <div id="lay4"><div class="filter-search-wrap" data-l1="21">
@@ -243,8 +271,14 @@
     data() {
       return {
         /*空集合数组，准备接受Axios根据模糊查询请求来的对象数据*/
+        suiJi1: [
+          {books_id:1,books_name:'小说',books_vip:1,booksType:1,books_url:'123',books_pic:'123',books_author:'强哥的猫',books_describe:'我们一起学猫叫，一起喵喵喵',books_count:21.3,books_status:1,type_name:'tos'}
+        ],
         suiJi: [
-          {books_id:1,books_name:'小说',books_vip:1,books_type:1,books_url:'123',books_pic:'123',books_author:'强哥的猫',books_describe:'我们一起学猫叫，一起喵喵喵',books_count:21.3,books_status:1,books_lianzai:1}
+          {books_id:1,books_name:'笑说',books_vip:1,booksType:1,books_url:'123',books_pic:'123',books_author:'强哥的猫',books_describe:'我们一起学猫叫，一起喵喵喵',books_count:21.3,books_status:1,type_name:'tos'}
+        ],
+        sanJiang: [
+          {books_id:1,books_name:'笑说',books_vip:1,booksType:1,books_url:'123',books_pic:'123',books_author:'强哥的猫',books_describe:'我们一起学猫叫，一起喵喵喵',books_count:21.3,books_status:1,type_name:'tos'}
         ],
         /*空集合数组，准备接受Axios请求来的对象数据*/
         tableData: [
@@ -267,62 +301,17 @@
           {key: 'fssj', src: 'https://bookcover.yuewen.com/qdbimg/349573/1016565478/90', desc: '捏造飞升世界'},
           {key: 'lgwc', src: 'https://bookcover.yuewen.com/qdbimg/349573/1013293257/90', desc: '舌尖上的罗哥沃茨'}
         ],
-        bookData: [{
-          type: '[都市]',
-          name: '王小虎',
-          zuozhe: '上海市'
-        }, {
-          type: '[科幻]',
-          name: '王小虎',
-          zuozhe: '上海市'
-        }, {
-          type: '[科幻]',
-          name: '王小虎',
-          zuozhe: '上海市'
-        }, {
-          type: '[科幻]',
-          name: '王小虎',
-          zuozhe: '上海市'
-        }, {
-          type: '[科幻]',
-          name: '王小虎',
-          zuozhe: '上海市'
-        }, {
-          type: '[科幻]',
-          name: '王小虎',
-          zuozhe: '上海市'
-        }, {
-          type: '[科幻]',
-          name: '王小虎',
-          zuozhe: '上海市'
-        }, {
-          type: '[科幻]',
-          name: '王小虎',
-          zuozhe: '上海市'
-        }, {
-          type: '[科幻]',
-          name: '王小虎',
-          zuozhe: '上海市'
-        }, {
-          type: '[科幻]',
-          name: '王小虎',
-          zuozhe: '上海市'
-        }, {
-          type: '[科幻]',
-          name: '王小虎',
-          zuozhe: '上海市'
-        }, {
-          type: '[科幻]',
-          name: '王小虎',
-          zuozhe: '上海市'
-        },{
-          type: '[科幻]',
-          name: '王小虎',
-          zuozhe: '上海市'
-        }],
         ref:""
       }
 
+    },
+    created () {
+      this.suiJi1 = this.suiJi
+    },
+    computed: {
+      num: function () {
+        return this.suiJi1.length
+      }
     },
     methods:{
       /*左侧分类栏接口*/
@@ -343,26 +332,71 @@
         alert("即将前往全部作品页，请系好安全带")
         this.$router.push("/oeuvre")
       },
+      /*免费*/
+      mianFei:function(){
+        this.$router.push("/search?key=0")
+      },
       change:function (par) {
         //alert(par)
         // setActiveItem()
-      }/*,
+      },
+      handlebriefCol(){
+        this.show=false;
+      },
+      handleAllCol(){
+        this.show=true;
+      },
+
+    filterChange (filters) {
+      for (const key in filters) {
+        if (filters[key].length > 0) {
+          if (filters[key][0].substr(0,1)==='5') {
+            let queryParams = null
+            queryParams = filters[key][0].substr(1, 2)
+            if (queryParams ==='') {
+              this.suiJi1 = this.suiJi
+            } else {
+              this.suiJi1 = this.suiJi.filter((item) => item.status === queryParams)
+              console.log(queryParams, this.suiJi1, filters)
+            }
+          }
+        }
+      }
+    }
+  /*,
       setActiveItem:function (par) {
         alert(par)
       }*/
     },
-    mounted(){
+    mounted() {
+
       this.findAll();
-      axios.get("api/book/selectAll").then(res=>{
+      axios.get("api/book/selectAll").then(res => {
         //alert(this.$route.query.scc)
         console.log(res.data)
         //res.data.books_type=3?'奇幻':'武侠'
-        this.suiJi=res.data;
-      })
+        this.suiJi = res.data;
+      }),
+        axios.get("api/book/selectAllVIP").then(res => {
+          //alert(this.$route.query.scc)
+          console.log(res.data)
+          //res.data.books_type=3?'奇幻':'武侠'
+          this.suiJi1=res.data;
+        }),
+        axios.get("api/book/selectAllCount").then(res => {
+          //alert(this.$route.query.scc)
+          console.log(res.data)
+          //res.data.books_type=3?'奇幻':'武侠'
+          this.sanJiang=res.data;
+        })
     }
-  };
+  }
 </script>
-
+<style>
+  .el-table-filter__list li:first-child {
+    display: none;
+  }
+</style>
 <style>
   a,.bg-purple-light21:hover{
     cursor:pointer
@@ -550,5 +584,6 @@
   .filter-search{
     margin-left: 300px;
   }
+
 
 </style>

@@ -16,10 +16,20 @@
           <div class="header-splid">|</div>
             <div class="header-login"><a @click="toRegist" target="_blank" class="el-icon-user">注册</a></div>
         </div>
+        <!--档登陆成功后，显示用户名且去掉登录和注册按钮，显示用户名-->
+        <!--<div class="more-side">
+          <ul v-if="!showname">
+            <div class="header-login"><a @click="toLogin" class="el-icon-user-solid">登录</a></div>
+            <div class="header-splid">|</div>
+              <div class="header-login"><a @click="toRegist" target="_blank" class="el-icon-user">注册</a>
+              </div>
+          </ul>
+          <span>{{user.user_name}}</span>
+          </div>-->
+        </div>
 
       </div>
     </div>
-  </div>
 </template>
 
 <script>

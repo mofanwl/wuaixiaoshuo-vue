@@ -9,7 +9,7 @@
           background-color="#545c64"
           text-color="#fff"
           active-text-color="#ffd04b">
-          <el-menu-item index="1">处理中心</el-menu-item>
+          <el-menu-item index="1"><a @click="backIndex">返回首页</a></el-menu-item>
           <el-submenu index="2">
             <template slot="title" style="width: 350px"><b>起点中文网</b></template>
             <el-menu-item index="2-1">起点女生网</el-menu-item>
@@ -48,7 +48,7 @@
           </el-menu-item>
           <el-menu-item index="7">
             <div class="wodeshujia">
-              <a href="//me.qidian.com/bookCase/bookCase.aspx?caseId=-2" target="_blank"><img src="../../assets/w1.png">我的书架</a>
+              <a @click="toShujia" target="_blank"><img src="../../assets/w1.png">我的书架</a>
             </div>
           </el-menu-item>
         </el-menu>
@@ -59,20 +59,40 @@
             <el-col :span="12"><div style="margin-top:-20px"><h3>本周强推</h3></div></el-col>
             <el-col :span="10"><div class="grid-content bg-purple-light"><a href=""><h5>更多>></h5></a></div></el-col>
           </el-row><hr><el-table
-            :data="moHu"
-            style="width: 100%;height: 650px">
+            :data="fenLei"
+            style="width: 100%;height: 680px">
             <el-table-column
-              prop="books_type"
-              width="70">
+              prop="type_name"
+              label="类型"
+              width="50">
             </el-table-column>
             <el-table-column
               prop="books_name"
-              width="100">
+              label="书名"
+              width="95">
             </el-table-column>
             <el-table-column
-              prop="books_vip"
+              prop="books_author"
+              label="作者"
+              width="65"
             >
-            </el-table-column></el-table></div></el-col>
+            </el-table-column>
+            <el-table-column
+              prop="vip_name">
+              <template scope="scope">
+                <span v-if="scope.row.vip_name==='VIP'" style="color: red">会员</span>
+                <span v-else style="color: green">免费</span>
+              </template>
+              <!-- prop="books_id"
+               label="编号"
+               v-if="show"
+               column-key="books_id"
+               :filters="type"
+               :filter-multiple='false'
+               filter-placement='right-end'
+             >-->
+            </el-table-column>
+            </el-table></div></el-col>
 
           <el-col :span="13"><div class="grid-content bg-purpley3-light"><div class="el-header1"><h3>&gt;&amp;本类强推&amp;&lt;</h3></div><br><hr><el-container>
             <el-header>
@@ -88,34 +108,23 @@
               </el-carousel></div></el-col>
               <!--展示对应类别的7个数据-->
               <el-col :span="13"><div class="grid-content bg-purple3mid"><el-carousel @change="change()"  :interval="4000" type="card" height="125px">
-                <el-carousel-item v-for="(item,index) in fenLei">
+                <el-carousel-item v-for="(item,index) in fenLei.slice(1,8)">
                   <img :src=item.books_pic style="width: 93px;height: 124px" :title="item.books_name" >
                 </el-carousel-item>
               </el-carousel></div></el-col>
             </el-row></el-main>
-            <el-main><el-row :gutter="20">
-              <el-col :span="8"><div class="grid-content bg-purple3mid2">
-                <h4><a href="//book.qidian.com/info/1016218809" data-eid="qd_A110" data-bid="1016218809" target="_blank" style="color: black">穿越到电影世界</a></h4>
-                <em class="total" style="color: red"><cite>58,889</cite><i>人在追</i></em>
-                <h6>意外来到了八十年代的香港，小马哥街边擦车，陈家驹在大街上追逐歹徒，……</h6></div></el-col>
-              <el-col :span="8"><div class="grid-content bg-purple3mid2"><h4><a href="//book.qidian.com/info/1016218809" data-eid="qd_A110" data-bid="1016218809" target="_blank" style="color: black">穿越到电影世界</a></h4>
-                <em class="total" style="color: red"><cite>58,889</cite><i>人在追</i></em>
-                <h6>意外来到了八十年代的香港，小马哥街边擦车，陈家驹在大街上追逐歹徒，……</h6></div></el-col>
-              <el-col :span="8"><div class="grid-content bg-purple3mid2"><h4><a href="//book.qidian.com/info/1016218809" data-eid="qd_A110" data-bid="1016218809" target="_blank" style="color: black">穿越到电影世界</a></h4>
-                <em class="total" style="color: red"><cite>58,889</cite><i>人在追</i></em>
-                <h6>意外来到了八十年代的香港，小马哥街边擦车，陈家驹在大街上追逐歹徒，……</h6></div></el-col>
-            </el-row></el-main>
-            <el-main><el-row :gutter="20">
-              <el-col :span="8"><div class="grid-content bg-purple3mid3"><h4><a href="//book.qidian.com/info/1016218809" data-eid="qd_A110" data-bid="1016218809" target="_blank" style="color: black">穿越到电影世界</a></h4>
-                <em class="total" style="color: red"><cite>58,889</cite><i>人在追</i></em>
-                <h6>意外来到了八十年代的香港，小马哥街边擦车，陈家驹在大街上追逐歹徒，……</h6></div></el-col>
-              <el-col :span="8"><div class="grid-content bg-purple3mid3"><h4><a href="//book.qidian.com/info/1016218809" data-eid="qd_A110" data-bid="1016218809" target="_blank" style="color: black">穿越到电影世界</a></h4>
-                <em class="total" style="color: red"><cite>58,889</cite><i>人在追</i></em>
-                <h6>意外来到了八十年代的香港，小马哥街边擦车，陈家驹在大街上追逐歹徒，……</h6></div></el-col>
-              <el-col :span="8"><div class="grid-content bg-purple3mid3"><h4><a href="//book.qidian.com/info/1016218809" data-eid="qd_A110" data-bid="1016218809" target="_blank" style="color: black">穿越到电影世界</a></h4>
-                <em class="total" style="color: red"><cite>58,889</cite><i>人在追</i></em>
-                <h6>意外来到了八十年代的香港，小马哥街边擦车，陈家驹在大街上追逐歹徒，……</h6></div></el-col>
-            </el-row></el-main>
+
+            <el-main><div class="haha" v-for="(items,index) in fenLei.slice(1,7)">
+              <div class="grid-content bg-purple3mid2" style="width: 202px;margin-left: 10px;float: left;overflow-y:hidden">
+                <h4><div class="total1"><a href="//book.qidian.com/info/1016218809" target="_blank" style="color: black">{{items.books_name}}</a></div></h4>
+                <div class="total" style="color: red;margin-top: -10px"><cite>{{items.books_count}}</cite><i>人在追</i></div>
+                <h6 style="margin-top: 1px"><p align="left">{{items.books_describe}}</p></h6>
+              </div>
+              <!--<el-col :span="8"><div class="grid-content bg-purple3mid3"><h4><a href="//book.qidian.com/info/1016218809" data-eid="qd_A110" data-bid="1016218809" target="_blank" style="color: black">穿越到电影世界</a></h4>
+                <em class="total" style="color: red"><cite>58,889</cite><i>人在追222</i></em>
+                <h6>{{items.books_describe}}</h6></div></el-col>-->
+            </div></el-main>
+
             <el-main><el-row :gutter="20">
               <el-col :span="12"><div class="grid-content bg-purple3mid4"><div class="hover-box"><div class="book-info"><h3>
                 <a href="//book.qidian.com/info/1016509432" data-eid="qd_A172" data-bookid="1016509432" target="_blank">世界树的游戏</a>
@@ -133,20 +142,26 @@
             <el-col :span="12"><div style="margin-top:-20px"><h3>三江·网文新风</h3></div></el-col>
             <el-col :span="10"><div class="grid-content bg-purple-light"><a href=""><h5>更多>></h5></a></div></el-col>
           </el-row><hr><el-table
-            :data="bookData"
-            style="width: 100%">
+            ref="filterTable"
+            :data="sanJiang"
+            style="width: 100%"
+            @filter-change="filterChange">
             <el-table-column
-              prop="type"
-              width="70">
+              prop="type_name"
+              label="类型"
+              width="50">
             </el-table-column>
             <el-table-column
-              prop="name"
+              prop="books_name"
+              label="书名"
               width="100">
             </el-table-column>
             <el-table-column
-              prop="zuozhe"
+              prop="books_author"
+              label="作者"
             >
-            </el-table-column></el-table></div></el-col>
+            </el-table-column>
+          </el-table></div></el-col>
         </el-row>
       </div>
     </div>
@@ -160,13 +175,12 @@
         return {
           activeIndex: '1',
           activeIndex2: '1',
-          /*空集合数组，准备接受Axios根据模糊查询请求来的对象数据*/
-          moHu: [
-            {books_id:1,books_name:'小说',books_vip:1,books_type:1,books_url:'123',books_pic:'123',books_status:1}
-          ],
           /*空集合数组，准备接受Axios根据TypeId查询请求来的对象数据*/
-          fenLei:[
-            {books_id:1,books_name:'小说',books_vip:1,books_type:1,books_url:'123',books_pic:'123',books_status:1}
+          fenLei: [
+            {books_id:1,books_name:'笑说',books_vip:1,booksType:1,books_url:'123',books_pic:'123',books_author:'强哥的猫',books_describe:'我们一起学猫叫，一起喵喵喵',books_count:21.3,books_status:1,type_name:'tos'}
+          ],
+          sanJiang: [
+            {books_id:1,books_name:'笑说',books_vip:1,booksType:1,books_url:'123',books_pic:'123',books_author:'强哥的猫',books_describe:'我们一起学猫叫，一起喵喵喵',books_count:21.3,books_status:1,type_name:'tos'}
           ],
           bookList: [
             {key: 'hnbc', src: 'https://bookcover.yuewen.com/qdbimg/349573/1015753893/90', desc: '出名太快怎么办'},
@@ -184,88 +198,39 @@
             {key: 'lqtx', src: 'https://bookcover.yuewen.com/qdbimg/349573/1016427988/90', desc: '绿茵传奇'},
             {key: 'fssj', src: 'https://bookcover.yuewen.com/qdbimg/349573/1016565478/90', desc: '捏造飞升世界'},
             {key: 'lgwc', src: 'https://bookcover.yuewen.com/qdbimg/349573/1013293257/90', desc: '舌尖上的罗哥沃茨'}
-          ],
-          bookData: [{
-            type: '[都市]',
-            name: '王小虎',
-            zuozhe: '上海市'
-          }, {
-            type: '[科幻]',
-            name: '王小虎',
-            zuozhe: '上海市'
-          }, {
-            type: '[科幻]',
-            name: '王小虎',
-            zuozhe: '上海市'
-          }, {
-            type: '[科幻]',
-            name: '王小虎',
-            zuozhe: '上海市'
-          }, {
-            type: '[科幻]',
-            name: '王小虎',
-            zuozhe: '上海市'
-          }, {
-            type: '[科幻]',
-            name: '王小虎',
-            zuozhe: '上海市'
-          }, {
-            type: '[科幻]',
-            name: '王小虎',
-            zuozhe: '上海市'
-          }, {
-            type: '[科幻]',
-            name: '王小虎',
-            zuozhe: '上海市'
-          }, {
-            type: '[科幻]',
-            name: '王小虎',
-            zuozhe: '上海市'
-          }, {
-            type: '[科幻]',
-            name: '王小虎',
-            zuozhe: '上海市'
-          }, {
-            type: '[科幻]',
-            name: '王小虎',
-            zuozhe: '上海市'
-          }, {
-            type: '[科幻]',
-            name: '王小虎',
-            zuozhe: '上海市'
-          },{
-            type: '[科幻]',
-            name: '王小虎',
-            zuozhe: '上海市'
-          }]
-        };
+          ]
+        }
       },
       methods: {
+          backIndex(){
+            this.$router.push("/indexindex")
+          },
+        toShujia:function(){
+          alert("即将传送至我的书架")
+          this.$router.push("/bookcenter/bookrack")
+        },
         handleSelect(key, keyPath) {
           console.log(key, keyPath);
         },
         /*模糊查询*/
-
-
       },
       mounted(){
-          axios.get("api/book/selectAllByName?name="+this.$route.query.scc).then(res=>{
-            alert(this.$route.query.scc)
-            console.log(res.data)
-            this.moHu=  res.data;
-          })
-
           /*点击类别得到该类别id,搜索对应类别的数据*/
           /*带参的请求---箭头函数*/
         axios.get("api/book/selectAllByType?type="+this.$route.query.id).then(res=>{
-          alert(this.$route.query.id)
+          //alert(this.$route.query.id)
           console.log(res.data)
           if (res.data!=null){
             this.fenLei=res.data;
           }else {
             alert("小店正在装修升级，敬请期待")
           }
-        })
+        }),
+          axios.get("api/book/selectAllCount").then(res => {
+            //alert(this.$route.query.scc)
+            console.log(res.data)
+            this.sanJiang=res.data;
+          })
       }
     }
 </script>
@@ -319,7 +284,9 @@
     margin-top: 0px;
   }
   .bg-purple3mid2,.bg-purple3mid3{
-    height: 150px;
+    height: 200px;
+    margin-top: 15px;
+    background: #fff8f9;
   }
   .bg-purple3mid4{
     height: 100px;

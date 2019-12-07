@@ -9,7 +9,7 @@
         background-color="#545c64"
         text-color="#fff"
         active-text-color="#ffd04b">
-        <el-menu-item index="1">处理中心</el-menu-item>
+        <el-menu-item index="1"><a @click="backIndex">返回首页</a></el-menu-item>
         <el-submenu index="2">
           <template slot="title" style="width: 350px"><b>起点中文网</b></template>
           <el-menu-item index="2-1">起点女生网</el-menu-item>
@@ -48,7 +48,7 @@
         </el-menu-item>
         <el-menu-item index="7">
           <div class="wodeshujia">
-            <a href="//me.qidian.com/bookCase/bookCase.aspx?caseId=-2" target="_blank"><img src="../../assets/w1.png">我的书架</a>
+            <a @click="toShujia" target="_blank"><img src="../../assets/w1.png">我的书架</a>
           </div>
         </el-menu-item>
       </el-menu>
@@ -93,23 +93,24 @@
                 <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">共99999本相关作品</a></el-menu-item>
               </el-menu>
             </div>
-            <div class="left3" style="margin-left: -35px;background: #a9a97b">
+            <div  style="height: 700px;width: 835px">
+            <div class="left3" style="overflow-x: hidden;width: 100%;height: 100%;margin-left: -35px">
               <div>
                 <el-col :span="19">
-                  <div class="book-img-text" v-for="(items,index) in moHu">
-                    <ul class="all-img-list cf">
+                  <div class="book-img-text" v-for="(items,index) in (this.$route.query.key==0?mianFei:moHu)">
+                    <ul class="all-img-list cf" >
                       <li data-rid="1">
                         <div class="book-img-box" @click="fun4(items)">
                           <img :src=items.books_pic width="102px" height="136px" class="yangshi"/>
                         </div>
                         <div class="book-mid-info">
                           <h4 @click="fun4(items)" class="yangshi">{{items.books_name}}</h4>
-                          <p class="name" align="left">作者:{{items.books_author}} | 状态:{{items.status_name}} | {{items.books_status=1?'上架':'已下架'}}</p>
+                          <p class="name" align="left">作者:{{items.books_author}} | 状态:{{items.status_name}} | {{items.booksStatus=1?'上架':'已下架'}}</p>
                           <p class="intro" align="left">描述:{{items.books_describe}}</p>
                           <p class="update" align="left">{{items.books_count}}字</p></div>
                         <div class="right" style="margin-top: 30px">
                           <el-row>
-                            <el-button type="danger">书籍详情</el-button>
+                            <el-button type="danger"><a @click="toXq">书籍详情</a></el-button>
                             <br><br>
                             <el-button type="danger">加入书架</el-button>
                           </el-row>
@@ -118,12 +119,13 @@
                       </li>
 
                     </ul>
-                    <hr>
+                    <hr style="width: 790px;margin-left: 30px;">
 
                   </div>
 
                 </el-col>
               </div>
+            </div>
             </div>
           </div>
         </el-col>
@@ -132,7 +134,7 @@
             <el-col :span="12"><div style="margin-top:10px"><h3>本周强推</h3></div></el-col>
             <el-col :span="10"><div class="grid-content bg-purple-light" style="background: #c3fce6"><a href=""><h5>更多>></h5></a></div></el-col>
           </el-row><hr><el-table
-            :data="moHu"
+            :data= "(this.$route.query.key==0?mianFei:moHu)"
             style="width: 100%;height: 650px">
             <el-table-column
               prop="type_name"
@@ -145,6 +147,10 @@
             <el-table-column
               prop="vip_name"
             >
+              <template scope="scope">
+                <span v-if="scope.row.vip_name==='VIP'" style="color: red">会员</span>
+                <span v-else style="color: green">免费</span>
+              </template>
             </el-table-column></el-table></div></div>
         </el-col>
       </el-row>
@@ -161,104 +167,47 @@
         activeIndex: '1',
         activeIndex2: '1',
         /*空集合数组，准备接受Axios根据模糊查询请求来的对象数据*/
-        moHu: [
-          {books_id:1,books_name:'小说',books_vip:1,books_type:1,books_url:'123',books_pic:'123',books_author:'强哥的猫',books_describe:'我们一起学猫叫，一起喵喵喵',books_count:21.3,books_status:1,status_name:'已完结',vip_name:'会员',type_name:'仙侠'}
+        mianFei: [
+          {books_id:1,books_name:'小说',booksVip:1,booksType:1,books_url:'123',books_pic:'123',books_author:'强哥的猫',books_describe:'我们一起学猫叫，一起喵喵喵',books_count:21.3,booksStatus:1,status_name:'已完结',vip_name:'会员',type_name:'仙侠'}
         ],
-        book: [{
-          id: 1,
-          imgs: 'https://bookcover.yuewen.com/qdbimg/349573/1004608738/150',
-          name: '圣墟',
-          writer: '辰东',
-          genre: '玄幻·东方玄幻',
-          state: '连载',
-          describe: '在破败中崛起，在寂灭中复苏。沧海成尘，雷电枯竭，那一缕幽雾又一次临近大地，世间的枷锁被打开了，一个全新的世界就此揭开神秘的一角……',
-          num: '512.64',
-        }, {
-          id: 2,
-          imgs: 'https://bookcover.yuewen.com/qdbimg/349573/3602691/150',
-          name: '修真聊天群',
-          writer: '圣骑士的传说',
-          genre: '都市·都市异能',
-          state: '连载',
-          describe: '某天，宋书航意外加入了一个仙侠中二病资深患者的交流群，里面的群友们都以‘道友’相称，群名片都是各种府主、洞主、真人、天师。连群主走失的宠物犬都称为大妖犬离家出走。整天聊的是炼丹、闯秘境、炼功经验啥的。',
-          num: '819.98',
-        }, {
-          id: 3,
-          imgs: 'https://bookcover.yuewen.com/qdbimg/349573/3602691/150',
-          name: '修真聊天群',
-          writer: '圣骑士的传说',
-          genre: '都市·都市异能',
-          state: '连载',
-          describe: '某天，宋书航意外加入了一个仙侠中二病资深患者的交流群，里面的群友们都以‘道友’相称，群名片都是各种府主、洞主、真人、天师。连群主走失的宠物犬都称为大妖犬离家出走。整天聊的是炼丹、闯秘境、炼功经验啥的。',
-          num: '819.98',
-        }],
-        tableData: [{
-          type: '[都市]',
-          name: '王小虎',
-          zuozhe: '上海市'
-        }, {
-          type: '[科幻]',
-          name: '王小虎',
-          zuozhe: '上海市'
-        }, {
-          type: '[科幻]',
-          name: '王小虎',
-          zuozhe: '上海市'
-        }, {
-          type: '[科幻]',
-          name: '王小虎',
-          zuozhe: '上海市'
-        }, {
-          type: '[科幻]',
-          name: '王小虎',
-          zuozhe: '上海市'
-        }, {
-          type: '[科幻]',
-          name: '王小虎',
-          zuozhe: '上海市'
-        }, {
-          type: '[科幻]',
-          name: '王小虎',
-          zuozhe: '上海市'
-        }, {
-          type: '[科幻]',
-          name: '王小虎',
-          zuozhe: '上海市'
-        }, {
-          type: '[科幻]',
-          name: '王小虎',
-          zuozhe: '上海市'
-        }, {
-          type: '[科幻]',
-          name: '王小虎',
-          zuozhe: '上海市'
-        }, {
-          type: '[科幻]',
-          name: '王小虎',
-          zuozhe: '上海市'
-        }, {
-          type: '[科幻]',
-          name: '王小虎',
-          zuozhe: '上海市'
-        },{
-          type: '[科幻]',
-          name: '王小虎',
-          zuozhe: '上海市'
-        }]
-      };
+        moHu: [
+          {books_id:1,books_name:'小说',booksVip:1,booksType:1,books_url:'123',books_pic:'123',books_author:'强哥的猫',books_describe:'我们一起学猫叫，一起喵喵喵',books_count:21.3,booksStatus:1,status_name:'已完结',vip_name:'会员',type_name:'仙侠'}
+        ]
+      }
     },
     methods: {
+      backIndex(){
+        this.$router.push("/indexindex")
+      },
+      toShujia:function(){
+        alert("即将传送至我的书架")
+        this.$router.push("/bookcenter/bookrack")
+      },
+      toXq(){
+        this.$router.push("/home")
+      },
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
       }
     },
     mounted(){
-      axios.get("api/book/selectAllByName?name="+this.$route.query.scc).then(res=>{
-        alert(this.$route.query.scc)
-        console.log(res.data)
-        //res.data.books_type=3?'奇幻':'武侠'
+      // alert(this.$route.query.key)
+      if((this.$route.query.key) == 0){
+        axios.get("api/book/selectAllMoney").then(res=>{
+          //alert(this.$route.query.key)
+          console.log(res.data)
+          //res.data.books_type=3?'奇幻':'武侠'
+          this.mianFei=res.data;
+        })
+      }else{
+        axios.get("api/book/selectAllByName?name="+this.$route.query.scc).then(res=>{
+          //alert(this.$route.query.scc)
+          console.log(res.data)
+          //res.data.books_type=3?'奇幻':'武侠'
           this.moHu=res.data;
-      })}
+        })
+      }
+        }
   }
 </script>
 
