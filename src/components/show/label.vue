@@ -1,10 +1,10 @@
 <template>
     <div class="biaoqian">
-        <span>完本</span>
+        <span>{{book.status_name}}</span>
         <span>签约</span>
-        <span>VIP</span>
-        <span>历史</span>
-        <span>架空</span>
+        <span>{{book.vip_name}}</span>
+        <span>{{book.type_name}}</span>
+        <span>123</span>
     </div>
 </template>
 
