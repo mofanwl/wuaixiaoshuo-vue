@@ -91,6 +91,9 @@
           }
         })
       }
+    },
+    mounted() {
+      this.findAll()
     }
   }
 </script>
