@@ -23,7 +23,7 @@
       <el-submenu index="2">
         <template slot="title">用户名</template>
         <el-menu-item index="2-1">
-          <router-link to="/kong">充值</router-link>
+          <router-link to="/bookpay">充值</router-link>
         </el-menu-item>
         <el-menu-item index="2-2">
           <router-link to="/setting">个人设置</router-link>
@@ -53,7 +53,7 @@
               <router-link to="/property">账务中心</router-link>
             </el-menu-item>
             <el-menu-item index="1-3">
-              <router-link to="/kong">会员中心</router-link>
+              <router-link to="/bookmeber ">会员中心</router-link>
             </el-menu-item>
             <el-menu-item index="1-4">
               <router-link to="/kong">我的红包</router-link>
@@ -137,7 +137,7 @@
           <p style="margin-top: 30px">账户余额</p>
           <p>{{user.money}}&nbsp;&nbsp;起点币</p>
           <el-divider></el-divider>
-          <router-link to="/kong">充值</router-link>
+          <router-link to="/bookpay">充值</router-link>
         </div>
         <div class="ticket">
           <p style="margin-top: 30px">我的票夹</p>
