@@ -1,6 +1,6 @@
 <template>
     <div class="mulu">
-
+      <iframe src="http://t.mofan.la/小说/仙侠/一品修仙/ms一品修仙.html" width="100%;" height="100%"></iframe>
     </div>
 </template>
 
@@ -10,12 +10,9 @@
 export default {
 
   methods:{
-
-  },
-  mounted(){
-    $(function () {
-      $("div").load("https://www.baidu.com")
-    })
+    // fun:$(function(){
+    //     $("#dh").load("http://www.baidu.com")
+    // })
   }
 }
 </script>
