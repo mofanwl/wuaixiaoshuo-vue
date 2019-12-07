@@ -23,10 +23,10 @@
       <el-submenu index="2">
         <template slot="title">用户名</template>
         <el-menu-item index="2-1">
-          <router-link to="/kong">充值</router-link>
+          <router-link to="/bookpay">充值</router-link>
         </el-menu-item>
         <el-menu-item index="2-2">
-          <router-link to="/kong">个人设置</router-link>
+          <router-link to="/setting">个人设置</router-link>
         </el-menu-item>
         <el-menu-item index="2-3">
           <router-link to="/myself">我的主页</router-link>
@@ -40,54 +40,54 @@
       </el-submenu>
     </el-menu>
     <div class="details">
-    <el-container style="height: 700px; border: 1px solid #eee">
-    <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-      <el-menu :default-openeds="['1', '3']">
-        <el-submenu index="1">
-          <template slot="title">个人中心</template>
-          <el-menu-item-group>
-            <el-menu-item index="1-1">
-              <router-link to="/myself">首页</router-link>
-            </el-menu-item>
-            <el-menu-item index="1-2">
-              <router-link to="/property">账务中心</router-link>
-            </el-menu-item>
-            <el-menu-item index="1-3">
-              <router-link to="/kong">我的票夹</router-link>
-            </el-menu-item>
-            <el-menu-item index="1-4">
-              <router-link to="/kong">我的红包</router-link>
-            </el-menu-item>
-            <el-menu-item index="1-5">
-              <router-link to="/kong">我的书评</router-link>
-            </el-menu-item>
-            <el-menu-item index="1-6">
-              <router-link to="/kong">我的本章说</router-link>
-            </el-menu-item>
-          </el-menu-item-group>
-          <el-menu-item-group>
-            <template slot="title"></template>
-            <el-menu-item index="1-7">
-              <router-link to="/kong">经验值</router-link>
-            </el-menu-item>
-            <el-menu-item index="1-8">
-              <router-link to="/kong">任务</router-link>
-            </el-menu-item>
-            <el-menu-item index="1-9">
-              <router-link to="/kong">徽章/称号/认证</router-link>
-              </el-menu-item>
-          </el-menu-item-group>
-          <el-menu-item-group>
-            <template slot="title"></template>
-            <el-menu-item index="1-10">
-              <router-link to="/kong">会员中心</router-link>
-            </el-menu-item>
-            <el-menu-item index="1-11">
-              <router-link to="/kong">安全中心</router-link>
-            </el-menu-item>
-            <el-menu-item index="1-12">
-              <router-link to="/kong">作家专区</router-link>
-            </el-menu-item>
+      <el-container style="height: 700px; border: 1px solid #eee">
+        <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+          <el-menu :default-openeds="['1', '3']">
+            <el-submenu index="1">
+              <template slot="title">个人中心</template>
+              <el-menu-item-group>
+                <el-menu-item index="1-1">
+                  <router-link to="/myself">首页</router-link>
+                </el-menu-item>
+                <el-menu-item index="1-2">
+                  <router-link to="/property">账务中心</router-link>
+                </el-menu-item>
+                <el-menu-item index="1-3">
+                  <router-link to="/bookmeber ">会员中心</router-link>
+                </el-menu-item>
+                <el-menu-item index="1-4">
+                  <router-link to="/kong">我的红包</router-link>
+                </el-menu-item>
+                <el-menu-item index="1-5">
+                  <router-link to="/kong">我的书评</router-link>
+                </el-menu-item>
+                <el-menu-item index="1-6">
+                  <router-link to="/kong">我的本章说</router-link>
+                </el-menu-item>
+              </el-menu-item-group>
+              <el-menu-item-group>
+                <template slot="title"></template>
+                <el-menu-item index="1-7">
+                  <router-link to="/kong">经验值</router-link>
+                </el-menu-item>
+                <el-menu-item index="1-8">
+                  <router-link to="/kong">任务</router-link>
+                </el-menu-item>
+                <el-menu-item index="1-9">
+                  <router-link to="/kong">徽章/称号/认证</router-link>
+                </el-menu-item>
+              </el-menu-item-group>
+              <el-menu-item-group>
+                <template slot="title"></template>
+                <el-menu-item index="1-10">
+                  <router-link to="/kong">票夹</router-link>
+                </el-menu-item>
+                <el-menu-item index="1-11">
+                  <router-link to="/kong">安全中心</router-link>
+                </el-menu-item>
+                <el-menu-item index="1-12">
+                  <router-link to="/kong">作家专区</router-link>
+                </el-menu-item>
           </el-menu-item-group>
         </el-submenu>
       </el-menu>

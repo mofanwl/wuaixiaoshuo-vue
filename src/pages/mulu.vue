@@ -16,6 +16,10 @@
     },
   mounted()
   {
+    axios.get("api/book/selectAllById/"+this.$route.query.id).then(res=> {
+      console.log(res.data)
+      this.book = res.data;
+    })
     _this = this;
     axios.get("").then(function (res) {
       _this.book = res.data.list;

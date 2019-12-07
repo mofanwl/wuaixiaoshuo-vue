@@ -70,7 +70,7 @@
               <table cellspacing="0" class="nangao">
                 <ul class="my1ul" v-for="(items,index) in condition">
                   <li @click="fun2(items)" class="my1li"
-                      style="margin-left: 20px;width:42px;height:14px;padding: 5px;border: 1px solid #e6e6e6">
+                      style="margin-left: 40px;width: 45px;height: 15px;padding: 5px;border: 1px solid rgb(230, 230, 230);">
                     {{items.status_name}}
                   </li>
                 </ul>
@@ -87,7 +87,7 @@
               <table cellspacing="0" class="nangao">
                 <ul class="my1ul" v-for="(items,index) in nature">
                   <li @click="fun3(items)" class="my1li"
-                      style="margin-left: 20px;width:42px;height:14px;padding: 5px;border: 1px solid #e6e6e6">
+                      style="margin-left: 42px;width:42px;height:14px;padding: 5px;border: 1px solid #e6e6e6">
                     {{items.vip_name}}
                   </li>
                 </ul>
@@ -102,11 +102,10 @@
             <ul class="all-img-list cf">
               <li data-rid="1">
                 <div class="book-img-box">
-                  <router-link to="/home"><img :src=items.books_pic width="102px" height="136px" class="yangshi"/>
-                  </router-link>
+                  <img :src=items.books_pic width="102px" height="136px" class="yangshi" @click="ss(items.books_id)"/>
                 </div>
                 <div class="book-mid-info">
-                  <router-link to="/home"><h4 class="yangshi">{{items.books_name}}</h4></router-link>
+                  <h4 class="yangshi" @click="ss(items.books_id)">{{items.books_name}}</h4>
                   <p class="name">{{items.books_author}} | {{items.booksVip==1?"免费":"VIP"}} |
                     {{items.booksStatus==1?"连载中":"已完结"}}</p>
                   <p class="intro">{{items.books_describe}}</p>
@@ -191,6 +190,10 @@
 
 
       },
+      ss:function(id){
+        // alert(id)
+        this.$router.push("/home?id="+id)
+      },
       findAll: function () {
         var _this = this;
         axios.get("api/book/findAll/" + this.params.page + "/" + this.params.size).then(function (res) {
@@ -210,7 +213,7 @@
       },
       //根据状态查
       fun2: function (items) {
-        alert(items.status_id)
+        // alert(items.status_id)
         var _this = this;
         axios.get("api/book/findAllByBooksStatus/" + items.status_id + "/" + this.params.page + "/" + this.params.size).then(function (res) {
           console.log(res.data);
@@ -221,7 +224,7 @@
       },
       //根据属性查
       fun3: function (items) {
-        alert(items.vip_id)
+        // alert(items.vip_id)
         var _this = this;
         axios.get("api/book/findAllByBooksVip/" + items.vip_id + "/" + this.params.page + "/" + this.params.size).then(function (res) {
           console.log(res.data);

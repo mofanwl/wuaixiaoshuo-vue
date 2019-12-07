@@ -1,6 +1,6 @@
 <template>
     <div class="nav">
-        <a :href="book.url">免费试读</a>
+        <a :href=book.books_url>免费试读</a>
         <router-link to="/kong">加入书架</router-link>
         <router-link to="/kong">投票互动</router-link>
         <router-link to="/kong">手机App阅读</router-link>
