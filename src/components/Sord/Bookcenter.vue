@@ -15,7 +15,7 @@
               <img src="http://q1bj8tdy9.bkt.clouddn.com/gerenlogo.png"/>
             </el-col>
             <el-col :span="3" :offset="0">
-              <el-menu-item index="1"><i class="el-icon-s-home"></i>我的首页</el-menu-item>
+              <router-link to="/myself"><el-menu-item index="1"><i class="el-icon-s-home"></i>我的首页</el-menu-item></router-link>
             </el-col>
             <el-col :span="3" :offset="0">
               <router-link to="/bookcenter/bookrack"><el-menu-item index="1"><i class="el-icon-s-management"></i>我的书架</el-menu-item></router-link>
@@ -33,8 +33,8 @@
               <el-submenu index="2">
                 <template slot="title">用户</template>
                 <router-link to="/bookpay"><el-menu-item index="2-1">充值</el-menu-item></router-link>
-                <el-menu-item index="2-2">个人设置</el-menu-item>
-                <el-menu-item index="2-3">我的主页</el-menu-item>
+                <router-link to="/setting"><el-menu-item index="2-2">个人设置</el-menu-item></router-link>
+                <router-link to="/myself"><el-menu-item index="2-3">我的主页</el-menu-item></router-link>
                 <el-menu-item index="2-4">客服中心</el-menu-item>
                 <el-menu-item index="2-5">退出</el-menu-item>
               </el-submenu>
