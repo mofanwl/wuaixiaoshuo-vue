@@ -52,7 +52,7 @@
             <table cellspacing="0" class="nangao">
               <ul class="myul" v-for="(items,index) in classes">
                 <div class="left11" style="font-size: 14px">
-                  <li @click="fun1(items.type_name)" class="myli"
+                  <li @click="fun1(items)" class="myli"
                       style="margin-left: 20px;width:42px;height:14px;padding: 5px;border: 1px solid #e6e6e6">
                     {{items.type_name}}
                   </li>
@@ -183,7 +183,7 @@
         this.params.page = page;
 
         this.findAll();
-        // this.fun1(items);
+        this.fun1(items);
 
 
       },
@@ -197,7 +197,12 @@
       },
       // 根据分类查
       fun1: function (items) {
-        alert(items)
+        var _this = this;
+        axios.get("api/book/findAllByBooksType/" +items.type_id+"/"+ this.params.page + "/" + this.params.size).then(function (res) {
+          console.log(res.data);
+          _this.book = res.data.list;
+          _this.total = res.data.total
+        })
       },
       //根据状态查
       fun2: function (items) {

@@ -33,7 +33,7 @@ Vue.use(Router)
 export default new Router({
   routes: [
     /*张浩*/
-    
+
     {
       path: '/indexindex',
       name: 'indexindex',
