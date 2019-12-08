@@ -96,7 +96,7 @@
 <script>
   import SIdentify from '@/components/User/utilspic.vue'
   import axios from "axios"
-  const TIME_COUNT = 4 // 倒计时的时间
+  const TIME_COUNT = 60 // 倒计时的时间
   export default {
     data(){
       //手机号验证
@@ -195,7 +195,20 @@
       getCode (formData) {
         // 验证码倒计时
         if (!this.timer) {
-          alert("发送。。。");
+          alert("发送成功！");
+          //alert("发送。。。");
+          axios.post("api/user/short", this.user).then(res => {
+            alert(res.data)
+            alert(res.data.short_cg);
+            //alert(res.data.tishi);
+            if ("ok" == res.data.short_cg) {
+              alert("短信验证码发送成功！")
+            } else if ("no" == res.data.short_cg) {
+              alert("短信验证码发送失败")
+            }
+          })
+
+
           this.count = TIME_COUNT
           this.show = false
           this.timer = setInterval(() => {
@@ -210,20 +223,23 @@
           }, 1000)
         }
       },
-      //用户登录
+      //验证码登录
       loginSubmit:function () {
         this.$refs.user.validate(valid => {
           // alert("1")
           if(valid){
            // alert("2")
             axios.post("api/user/logintel",this.user).then(res=>{
+              //alert(res.data.dlyz)
               // alert(res.data.dlyz);
               //alert(res.data.tishi);
-              if("yzmnok"==res.data.fh_cg){
+              if("yzmnok"==res.data.dlyz){
                 alert("登录成功！")
-              }else if("nophone"==res.data.fh_cg){
+
+                this.$router.push("/indexindex")
+              }else if("nophone"==res.data.dlyz){
                 alert("手机号不存在，请先注册")
-              }else if("yzmno"==res.data.fh_cg){
+              }else if("yzmno"==res.data.dlyz){
                 alert("验证码错误")
               }
             })

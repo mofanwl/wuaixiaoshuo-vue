@@ -99,6 +99,7 @@
 <script>
   import SIdentify from '@/components/User/utilspic.vue'
   import axios from "axios"
+  import {setCookie,getCookie} from '../../assets/js/cookie'
 
   export default {
     data() {
@@ -181,6 +182,8 @@
         // 验证码倒计时
         if (!this.timer) {
           alert("发送。。。");
+
+
           this.count = TIME_COUNT
           this.show = false
           this.timer = setInterval(() => {
@@ -205,6 +208,22 @@
               //alert(res.data.tishi);
               if ("ok" == res.data.dlyz) {
                 alert("登录成功！")
+                setCookie('login',res.data.login);
+                setCookie('vip',res.data.vip);
+                setCookie('user_name',res.data.user_name);
+                setCookie('user_id',res.data.user_id);
+                setCookie('user_vip_time',res.data.user_vip_time);
+                setCookie('user_portrait',res.data.user_portrait);
+                setCookie('user_total_mount',res.data.user_total_mount);
+                let login = getCookie('login');
+                let vip = getCookie('vip');
+                let user_name = getCookie('user_name');
+                let user_id = getCookie('user_id');
+                let user_vip_time = getCookie('user_vip_time');
+                let user_portrait = getCookie('user_portrait');
+                let user_total_mount = getCookie('user_total_mount');
+                console.log('cookie' + login+user_name+vip+user_vip_time+user_portrait+user_total_mount+user_id);
+                this.$router.push("/indexindex")
               } else if ("userno" == res.data.dlyz) {
                 alert("此用户不存在，请先注册")
               } else if ("no" == res.data.dlyz) {

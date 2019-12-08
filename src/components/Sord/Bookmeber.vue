@@ -17,10 +17,10 @@
         <div class="pay-method">
           <el-form ref="form" :model="sizeForm" label-width="80px" size="mini">
             <el-form-item label="用户">
-              <el-input disabled v-model="id">{{sizeForm.id}}</el-input>
+              <el-input disabled v-model="sizeForm.id">{{sizeForm.id}}</el-input>
             </el-form-item>
             <el-form-item label="账户余额">
-              <el-input disabled v-model="pay">{{sizeForm.pay}}</el-input>
+              <el-input disabled v-model="sizeForm.pay">{{sizeForm.pay}}</el-input>
             </el-form-item>
 
             <el-form-item label="充值时间">
@@ -43,7 +43,7 @@
 
 <script>
   import axios from 'axios'
-
+  import {setCookie,getCookie} from '../../assets/js/cookie'
   export default {
     name: "Bookpay",
     data() {
@@ -51,22 +51,32 @@
         sizeForm: {
           id: '1',
           name: 'zhang',
-          pay: 120,
-          a: ''
+          pay: '0',
+          a: '1个月'
         },
-        id:'2',
-        pay:'200'
+       // id:'2',
+       // pay:'200'
       }
     },
     methods: {
       onSubmit(sizeForm) {
         // var _value=this.value;
-        alert(sizeForm.a+sizeForm.id+sizeForm.pay);
-        axios.get("" + sizeForm.a  + "/" + sizeForm.id + "/" + sizeForm.name).then(function (res) {
+       // alert(sizeForm.id)
+       // alert(sizeForm.a);
+        axios.get("api/user/tovip/" + sizeForm.id + "/"+ sizeForm.a).then(function (res) {
+          if("ok"==res.data.msg){
+            alert("会员已到账！")
+            this.$router.push("/myself")
+          }else{
+            alert("宇额不足，请先充值！")
+            this.$router.push("/bookpay")
+          }
+
+          ///alert(res.data.msg)
 
         })
 
-        const h = this.$createElement;
+        /*const h = this.$createElement;
         this.$msgbox({
           title: '等待支付',
           message: h('p', null, [
@@ -95,9 +105,15 @@
             type: 'info',
             message: 'action: ' + action
           });
-        });
+        });*/
       }
 
+    },
+    mounted(){
+      let user_id = getCookie('user_id');
+      let user_total_mount = getCookie('user_total_mount');
+      this.sizeForm.id=user_id
+      this.sizeForm.pay=user_total_mount
     }
   }
 

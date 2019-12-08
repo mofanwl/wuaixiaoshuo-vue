@@ -38,6 +38,14 @@ export default new Router({
     /*张浩*/
 
     {
+      path: '/',
+      name: 'indexindex',
+      component: indexindex,
+      meta: {
+        keep: true
+      }
+    },
+    {
       path: '/indexindex',
       name: 'indexindex',
       component: indexindex,

@@ -146,7 +146,7 @@
           <el-tab-pane label="头像设置" style="height: 400px">
             <el-upload
               class="avatar-uploader"
-              action="https://jsonplaceholder.typicode.com/posts/"
+              action="api/user/portraittouxiang"
               :show-file-list="false"
               :on-success="handleAvatarSuccess"
               :before-upload="beforeAvatarUpload"
@@ -157,7 +157,7 @@
             <p style="margin-top: 160px;">本地上传: 选择本地图片编辑后上传 (上传头像将会在2个工作日内进行审核，通过后需重新登录显示新头像)。
 
               支持jpg格式图片，上传文件大小不超过2MB，图片尺寸需大于200*200。</p>
-            <div>
+           <!-- <div>
               <el-upload
                 class="avatar-uploader"
                 action="https://jsonplaceholder.typicode.com/posts/"
@@ -168,7 +168,7 @@
                 <img v-if="imageUrl" :src="imageUrl" class="avatar">
                 <el-button size="small" type="primary">点击上传</el-button>
               </el-upload>
-            </div>
+            </div>-->
           </el-tab-pane>
         </el-tabs>
       </div>
@@ -185,7 +185,9 @@
       return {
         activeIndex: '1',
         activeIndex2: '1',
-        imageUrl: ''
+        imageUrl: 'http://q1bjiy8xr.bkt.clouddn.com/default_user.0.2.png',
+        //imageUrl: 'api/user/portraittouxiang',
+        tupianhc:'api/user/portraittouxiang'
       };
     },
     methods: {
@@ -193,7 +195,10 @@
         console.log(key, keyPath);
       },
       handleAvatarSuccess(res, file) {
-        this.imageUrl = URL.createObjectURL(file.raw);
+        const formData = new FormData();
+        formData.append('file', this.file)
+        formData.append('idid', 22)
+        //this.imageUrl = URL.createObjectURL("file":file);
       },
       beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';

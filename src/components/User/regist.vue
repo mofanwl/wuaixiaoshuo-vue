@@ -101,7 +101,7 @@
 
 <script>
   import SIdentify from '@/components/User/utilspic.vue'
-  const TIME_COUNT = 4 // 倒计时的时间
+  const TIME_COUNT = 60 // 倒计时的时间
   import axios from "axios"
   export default {
     data(){
@@ -233,7 +233,18 @@
       getCode (formData) {
         // 验证码倒计时
         if (!this.timer) {
-          alert("发送。。。");
+          alert("发送成功！");
+          axios.post("api/user/short", this.user).then(res => {
+           // alert(res.data)
+           // alert(res.data.short_cg);
+            //alert(res.data.tishi);
+            if ("ok" == res.data.short_cg) {
+              alert("短信验证码发送成功！")
+            } else if ("no" == res.data.short_cg) {
+              alert("短信验证码发送失败")
+            }
+          })
+
           this.count = TIME_COUNT
           this.show = false
           this.timer = setInterval(() => {

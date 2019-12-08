@@ -54,13 +54,13 @@
 
 <script>
   import axios from 'axios'
-
+  import {setCookie,getCookie} from '../../assets/js/cookie'
   export default {
     name: "Bookpay",
     data() {
       return {
         sizeForm: {
-          id: '1',
+          id: '22',
           name: 'zhang',
           pay: 120,
           a: '',
@@ -69,11 +69,14 @@
       }
     },
     methods: {
-      onSubmit(sizeForm) {
-        alert(sizeForm.id + sizeForm.name + sizeForm.a + sizeForm.b);
-        axios.get("" + sizeForm.a + "/" + sizeForm.b + "/" + sizeForm.id + "/" + sizeForm.name).then(function (res) {
 
-        })
+      onSubmit(sizeForm) {
+        //alert(sizeForm.id + sizeForm.name + sizeForm.a + sizeForm.b);
+        /*axios.get("api/pay/" + sizeForm.id + "/" + sizeForm.pay).then(function (res) {
+
+        })*/
+        //alert(this.)
+        window.location.href="http://localhost:8584/pay/"+sizeForm.id+"/"+sizeForm.b;
 
         const h = this.$createElement;
         this.$msgbox({
@@ -106,6 +109,15 @@
           });
         });
       }
+    },
+    mounted(){
+
+      let user_id = getCookie('user_id');
+      let user_name = getCookie('user_name');
+      let user_total_mount = getCookie('user_total_mount');
+      this.sizeForm.id=user_id
+      this.sizeForm.name=user_name
+      this.sizeForm.pay=user_total_mount
 
     }
   }

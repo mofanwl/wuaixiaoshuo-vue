@@ -7,30 +7,30 @@
         <template slot-scope="props">
           <el-form label-position="left" inline class="demo-table-expand">
             <el-form-item label="书名:">
-              <span>{{ props.row.name }}</span>
+              <span>{{ props.row.books_name }}</span>
             </el-form-item>
             <el-form-item label="作者:">
-              <span>{{ props.row. writer }}</span>
+              <span>{{ props.row. books_author }}</span>
             </el-form-item>
             <el-form-item label="类型:">
-              <span>「{{ props.row.genre }}」</span>
+              <span>「{{ props.row.type_name }}」</span>
             </el-form-item>
             <el-form-item label="状态:">
-              <span>{{ props.row.state}}</span>
+              <span>{{ props.row.books_status}}</span>
             </el-form-item>
             <el-form-item label="字数:">
-              <span>{{ props.row.num }}万字</span>
+              <span>{{ props.row.books_count }}万字</span>
             </el-form-item>
           </el-form>
         </template>
       </el-table-column>
       <el-table-column
         label="书名"
-        prop="name">
+        prop="books_name">
       </el-table-column>
       <el-table-column
         label="作者"
-        prop="writer">
+        prop="books_author">
       </el-table-column>
       <el-table-column
         label="操作">
@@ -56,12 +56,12 @@
     data() {
       return {
         book: [
-          {id: 1, name: '圣墟', writer: '陈东', genre: '玄幻·东方玄幻', state: '连载', num: '513.04'},
-          {id: 2, name: '圣墟', writer: '陈东', genre: '玄幻·东方玄幻', state: '连载', num: '513.04'},
+          /*{id: 1, name: '圣墟', writer: '陈东', genre: '玄幻·东方玄幻', state: '连载', num: '513.04'},
+          {id: 2, name: '圣墟', writer: '陈东', genre: '玄幻·东方玄幻', state: '连载', num: '513.04'},*/
         ],
         params: {
-          size: 2,
           page: 1,
+          size: 2,
         },
         total: 10,
       }
@@ -73,10 +73,11 @@
       },
       //查
       findAll: function () {
-        var _this = this;
-        axios.get("" + this.params.size + "/" + this.params.page).then(function (res) {
-          _this.tableData = res.data.list;
-          _this.total = res.data.total;
+        axios.get("api/collect/selListByuser/"+15+"/" + this.params.page + "/" +   this.params.size).then(res => {
+          //alert(res.data)
+          console.log(res.data)
+          this.book = res.data.list;
+          this.total = res.data.total;
           // _this.page = res.data.page
         })
       },

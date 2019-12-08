@@ -169,7 +169,7 @@
                 <table border="1">
                   <tr>
                     <td>序号</td>
-                    <td>编号</td>
+                   <!-- <td>编号</td>-->
                     <td>订单号</td>
                     <td>名称</td>
                     <td>原价</td>
@@ -178,8 +178,8 @@
                     <td>支付时间</td>
                   </tr>
                   <tr v-for="(pay,index) in pays">
-                    <td>{{index}}</td>
-                    <td>{{pay.id}}</td>
+                    <td>{{index+1}}</td>
+                 <!--   <td>{{pay.order_id}}</td>-->
                     <td>{{pay.out_trade_no}}</td>
                     <td>{{pay.subject}}</td>
                     <td>{{pay.total_amount}}</td>
@@ -198,6 +198,7 @@
 </template>
 
 <script>
+  import {setCookie,getCookie} from '../../assets/js/cookie'
   import axios from 'axios'
   export default {
     data() {
@@ -208,19 +209,42 @@
           name:'游客233333333333333',
           money:'0',
         },
-        pays:[
-          { pay_id:1,out_trade_no:"201912061021358975796",subject:"兰博基尼V12",total_amount:"5600.66", total_amount_1:"5600.66",pay_state:"支付成功",pay_time:"2019-12-06 10:21:36"}
-        ]
+        user_id:'',
+        pays:[]
+          /*{ pay_id:1,out_trade_no:"201912061021358975796",subject:"兰博基尼V12",total_amount:"5600.66", total_amount_1:"5600.66",pay_state:"支付成功",pay_time:"2019-12-06 10:21:36"}*/
+
       };
     },
     mounted(){
-      _this = this;
-      axios.get("").then(function (res) {
-        _this.user = res.data.list;
-        _this.pays = res.data.list;
-      })
+      this.selMoney()
+      let user_id = getCookie('user_id');
+      let user_total_mount = getCookie('user_total_mount');
+      this.user_id=user_id
+      this.user.money=user_total_mount
+
+      this.findAll()
+      //_this = this;
+     /* axios.get("api/order/selUserByPay/15").then(function (res) {
+        alert(res.data)
+       // _this.user = res.data.list;
+        this.pays = res.data;
+      })*/
     },
     methods: {
+      selMoney(){
+        axios.post("api/user/selMoney/"+ this.user_id).then(res => {
+          setCookie('user_total_mount',res.data.user_total_mount);
+          //alert()
+        })
+      },
+      findAll: function () {
+        var _this = this;
+        axios.get("api/order/selUserByPay/"+this.user_id).then(function (res) {
+          console.log(res.data);
+          _this.pays = res.data;
+        })
+      },
+
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
       }

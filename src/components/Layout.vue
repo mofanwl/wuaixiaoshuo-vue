@@ -27,7 +27,7 @@
               <div class="header-login"><a @click="toRegist" target="_blank" class="el-icon-user">注册</a>
               </div>
           </ul>
-          <span v-if="!showname1">欢迎：<a @click="toMyself">振虎总裁</a></span>
+          <span v-if="!showname1">欢迎：<a @click="toMyself">{{user_name}}</a></span>
           </div>
         </div>
 
@@ -36,13 +36,15 @@
 </template>
 
 <script>
-
+  import {setCookie,getCookie} from '../assets/js/cookie'
   export default {
     name: "Layout",
     data() {
       return {
         input5: '',
         select: '',
+        user_name:'',
+
         showname:false,
         showname1:false
       }
@@ -61,8 +63,14 @@
         this.$router.push("/regist")
       },
       toShujia: function () {
-        alert("即将传送至我的书架")
-        this.$router.push("/bookcenter/bookrack")
+        let login = getCookie('login');
+        if(login=="loginyes"){
+          //alert("即将传送至我的书架")
+          this.$router.push("/bookcenter/bookrack")
+        }else {
+          this.$router.push("login")
+        }
+
       },
       /*带参（key:value）到达个人中心*/
       toMyself:function(scop){
@@ -80,7 +88,12 @@
       this.$emit('public_footer', false)
     },
     mounted() {
-      if(1==0){
+
+      let user_names = getCookie('user_name');
+      this.user_name=user_names
+
+     // alert(getCookie("login"))
+      if("loginyes"==getCookie("login")){
 this.showname=true;
 this.showname1=false;
       }else {

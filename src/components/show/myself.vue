@@ -72,7 +72,7 @@
             </el-col>
             <el-col :span="5" :offset="0">
               <el-submenu index="2">
-                <template slot="title">用户</template>
+                <template slot="title">{{user_name}}</template>
                 <router-link to="/bookpay"><el-menu-item index="2-1">充值</el-menu-item></router-link>
                 <router-link to="/setting"><el-menu-item index="2-2">个人设置</el-menu-item></router-link>
                 <router-link to="/myself"><el-menu-item index="2-3">我的主页</el-menu-item></router-link>
@@ -152,7 +152,8 @@
           </div>
         </div>
         <div id="one_name">
-          <p style="margin-top: -20px">{{user.name}}</p>
+          <p style="margin-top: -20px">用户:{{user_name}}</p>
+          <p style="margin-top: -20px">会员到期时间:{{date}}</p>
         </div>
         <div id="one_per" class="center">
           <router-link to="/kong">个人主页</router-link>
@@ -185,25 +186,25 @@
       <div id="two">
         <div class="rechange">
           <p style="margin-top: 30px">账户余额</p>
-          <p>{{user.money}}&nbsp;&nbsp;起点币</p>
+          <p>{{money}}&nbsp;&nbsp;起点币</p>
           <el-divider></el-divider>
           <router-link to="/bookpay">充值</router-link>
         </div>
         <div class="ticket">
           <p style="margin-top: 30px">我的票夹</p>
-          <p>{{user.money}}&nbsp;&nbsp;月票</p>
+          <p>{{money}}&nbsp;&nbsp;月票</p>
           <el-divider></el-divider>
           <router-link to="/kong">立即查看</router-link>
         </div>
         <div class="collect">
           <p style="margin-top: 30px">我的书架</p>
-          <p>{{user.money}}&nbsp;&nbsp;本藏书</p>
+          <p>{{money}}&nbsp;&nbsp;本藏书</p>
           <el-divider></el-divider>
           <router-link to="/kong">立即查看</router-link>
         </div>
         <div class="attention">
           <p style="margin-top: 30px">我的书单</p>
-          <p>{{user.money}}&nbsp;&nbsp;个关注</p>
+          <p>{{money}}&nbsp;&nbsp;个关注</p>
           <el-divider></el-divider>
           <router-link to="/kong">立即查看</router-link>
         </div>
@@ -215,27 +216,51 @@
 </template>
 
 <script>
+  import {setCookie,getCookie} from '../../assets/js/cookie'
   import axios from 'axios'
   export default {
     data() {
       return {
         fits: ['fill'],
+        //url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
         url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
         activeIndex: '1',
         activeIndex2: '1',
-        user:{
-          name:'游客233333333333333',
+        user_name:'lisi',
+        user_id:'',
+        data:'',
+        money:''
+        /*user:{
+          name:'',
           money:'0',
-        }
+        }*/
       };
     },
     mounted(){
-      _this = this;
-      axios.get("").then(function (res) {
-        _this.user = res.data.list;
-      })
+      this.selMoney()
+      //let vip = getCookie('vip');
+      let user_id = getCookie('user_id');
+      this.user_id=user_id
+      let user_name = getCookie('user_name');
+      let user_portrait = getCookie('user_portrait');
+      let user_total_mount = getCookie('user_total_mount');
+      let user_vip_time = getCookie('user_vip_time');
+      this.user_name=user_name
+      this.money=user_total_mount
+      this.url=user_portrait
+      this.date=user_vip_time
+      //_this = this;
+     /* axios.get("").then(function (res) {
+        this.user = res.data.list;
+      })*/
     },
     methods: {
+      selMoney(){
+        axios.post("api/user/selMoney/"+ this.user_id).then(res => {
+          setCookie('user_total_mount',res.data.user_total_mount);
+          //alert()
+        })
+      },
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
       }
@@ -322,7 +347,7 @@
     margin-left: -495px;
 }
   #one{
-    background: url("http://thumbs.dreamstime.com/b/%E6%89%93%E5%BC%80%E5%9C%A8%E8%84%8F%E7%9A%84%E8%83%8C%E6%99%AF%E7%9A%84%E4%B9%A6-93619271.jpg");
+    background: url("../../assets/userbjt.jpg");
     width: 800px;
     height: 220px;
   }
