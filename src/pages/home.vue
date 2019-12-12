@@ -22,7 +22,8 @@
           </div>
           <div class="nav" style="margin: auto">
             <a :href=book.books_url>免费试读</a>
-            <router-link to="/kong">加入书架</router-link>
+            <!--<router-link to="/kong">加入书架</router-link>-->
+            <router-link to="" @click="fun1(book)">加入书架</router-link>
             <router-link to="/kong">投票互动</router-link>
             <router-link to="/kong">手机App阅读</router-link>
           </div>
@@ -78,6 +79,17 @@
     methods: {
       fun() {
         alert("冲了钱才能订阅");
+      },
+      fun1:function () {
+       // console.log(this.book.collect_uid)
+        /*axios.get("api/collect/insUserOne" + book).then(function (res) {
+          console.log(res);
+          if(res.data=="ok"){
+            alert("加入成功");
+          }else {
+            alert("加入失败");
+          }
+        })*/
       }
     }
   }

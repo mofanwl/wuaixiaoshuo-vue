@@ -236,9 +236,28 @@
         }*/
       };
     },
+
+    methods: {
+      selMoney(){
+       // alert(this.user_id)
+        axios.get("api/user/selMoney/"+this.user_id).then(res => {
+         // alert(this.user_id)
+          //alert(res.data.user_total_mount)
+         // alert(res.data.user_vip_time)
+          setCookie('user_vip_time',res.data.user_vip_time);
+          setCookie('user_total_mount',res.data.user_total_mount);
+          //alert()
+        })
+      },
+      handleSelect(key, keyPath) {
+        console.log(key, keyPath);
+      }
+    },
     mounted(){
-      this.selMoney()
+
       //let vip = getCookie('vip');
+
+
       let user_id = getCookie('user_id');
       this.user_id=user_id
       let user_name = getCookie('user_name');
@@ -249,21 +268,13 @@
       this.money=user_total_mount
       this.url=user_portrait
       this.date=user_vip_time
+      this.selMoney();
+
+
       //_this = this;
-     /* axios.get("").then(function (res) {
-        this.user = res.data.list;
-      })*/
-    },
-    methods: {
-      selMoney(){
-        axios.post("api/user/selMoney/"+ this.user_id).then(res => {
-          setCookie('user_total_mount',res.data.user_total_mount);
-          //alert()
-        })
-      },
-      handleSelect(key, keyPath) {
-        console.log(key, keyPath);
-      }
+      /* axios.get("").then(function (res) {
+         this.user = res.data.list;
+       })*/
     }
   }
 </script>

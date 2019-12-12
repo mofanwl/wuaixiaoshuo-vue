@@ -83,13 +83,13 @@
       },
       //删
       deleteById:function (scope) {
-        alert(scope.id)
-        axios.post("",{id:scope.id}).then(res=>{
-          if(res.data==("success")){
+        alert(scope.books_id)
+        axios.post("api/collect/delByBid?collect_bid="+scope.books_id).then(res=>{
+         // if(res.data==("success")){
             this.findAll()
-          }else {
+         /* }else {
             alert("删除失败")
-          }
+          }*/
         })
       }
     },

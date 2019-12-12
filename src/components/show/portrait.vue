@@ -141,37 +141,13 @@
       </el-menu>
     </el-aside>
       <div>
-      <div id="one">
-        <el-tabs type="border-card">
-          <el-tab-pane label="头像设置" style="height: 400px">
-            <el-upload
-              class="avatar-uploader"
-              action="api/user/portraittouxiang"
-              :show-file-list="false"
-              :on-success="handleAvatarSuccess"
-              :before-upload="beforeAvatarUpload"
-              style="height: 80px;width: 80px;margin-left: 80px">
-              <img v-if="imageUrl" :src="imageUrl" class="avatar">
-              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
-            <p style="margin-top: 160px;">本地上传: 选择本地图片编辑后上传 (上传头像将会在2个工作日内进行审核，通过后需重新登录显示新头像)。
-
-              支持jpg格式图片，上传文件大小不超过2MB，图片尺寸需大于200*200。</p>
-           <!-- <div>
-              <el-upload
-                class="avatar-uploader"
-                action="https://jsonplaceholder.typicode.com/posts/"
-                :show-file-list="false"
-                :on-success="handleAvatarSuccess"
-                :before-upload="beforeAvatarUpload"
-                style="height: 80px;width: 80px;margin-left: 80px">
-                <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                <el-button size="small" type="primary">点击上传</el-button>
-              </el-upload>
-            </div>-->
-          </el-tab-pane>
-        </el-tabs>
-      </div>
+        <div>
+          <el-upload class="upload-demo" action="auto" :http-request="uploadSectionFile" list-type="picture">
+            <el-button size="small" type="primary">点击上传</el-button>
+            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过2MB</div>
+          </el-upload>
+          <el-button size="small" type="primary" @click="upload">提交</el-button>
+        </div>
       </div>
     </el-container>
     </div>
@@ -179,41 +155,77 @@
 </template>
 
 <script>
-
+  import {setCookie,getCookie} from '../../assets/js/cookie'
+  import axios from "axios"
   export default {
     data() {
       return {
-        activeIndex: '1',
-        activeIndex2: '1',
-        imageUrl: 'http://q1bjiy8xr.bkt.clouddn.com/default_user.0.2.png',
-        //imageUrl: 'api/user/portraittouxiang',
-        tupianhc:'api/user/portraittouxiang'
+        uploadFile: "",
+        user_id:""
       };
     },
     methods: {
-      handleSelect(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      handleAvatarSuccess(res, file) {
-        const formData = new FormData();
-        formData.append('file', this.file)
-        formData.append('idid', 22)
-        //this.imageUrl = URL.createObjectURL("file":file);
-      },
-      beforeAvatarUpload(file) {
-        const isJPG = file.type === 'image/jpeg';
-        const isLt2M = file.size / 1024 / 1024 < 2;
+      uploadSectionFile(param) {
+        let fileObj = param.file;
 
-        if (!isJPG) {
-          this.$message.error('上传头像图片只能是 JPG 格式!');
-        }
+        const isLt2M = fileObj.size / 1024 / 1024 < 2;
         if (!isLt2M) {
-          this.$message.error('上传头像图片大小不能超过 2MB!');
+          this.$message.error("上传头像图片大小不能超过 2MB!");
+          return;
         }
-        return isJPG && isLt2M;
+        if (fileObj.type === "image/jpeg") {
+          this.uploadFile = new File([fileObj], new Date().getTime() + ".jpg", {
+            type: "image/jpeg"
+          });
+        } else if (fileObj.type === "image/png") {
+          this.uploadFile = new File([fileObj], new Date().getTime() + ".png", {
+            type: "image/png"
+          });
+        } else {
+          this.$message.error("只能上传jpg/png文件");
+          return;
+        }
+      },
+      upload() {
+       // alert(this.user_id)
+        var param = new FormData(); // FormData 对象
+        param.append("file", this.uploadFile); // 文件对象
+        param.append("idid", this.user_id); // 其他参数
+        this.$axios({
+          method: "post",
+          url: "api/user/touxiang",
+          data: param
+        }).then(response => {
+         // alert(response.data.user_portrait)
+          setCookie('user_portrait',response.data.user_portrait);
+
+          this.$message({
+            message: '上传成功',
+            type: 'success'
+          });
+        }).catch(error => {
+          this.$message.error("上传失败,请稍后重试");
+        });
       }
+    } ,
+    mounted(){
+      //let vip = getCookie('vip');
+      let user_id = getCookie('user_id');
+      this.user_id=user_id
+  /*    let user_name = getCookie('user_name');
+      let user_portrait = getCookie('user_portrait');
+      let user_total_mount = getCookie('user_total_mount');
+      let user_vip_time = getCookie('user_vip_time');
+      this.user_name=user_name
+      this.money=user_total_mount
+      this.url=user_portrait
+      this.date=user_vip_time
+      //_this = this;
+      /!* axios.get("").then(function (res) {
+         this.user = res.data.list;
+       })*!/*/
     }
-  }
+  };
 </script>
 
 <style scoped>

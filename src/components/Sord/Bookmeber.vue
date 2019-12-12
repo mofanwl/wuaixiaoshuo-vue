@@ -22,7 +22,7 @@
             <el-form-item label="账户余额">
               <el-input disabled v-model="sizeForm.pay">{{sizeForm.pay}}</el-input>
             </el-form-item>
-
+            <h3><p style="color: #E21918">注:一个月15元,三个月30元,半年70元,一年120元</p></h3><br>
             <el-form-item label="充值时间">
               <el-radio-group v-model="sizeForm.a" size="medium">
                 <el-radio border label="1个月"></el-radio>
@@ -66,11 +66,15 @@
         axios.get("api/user/tovip/" + sizeForm.id + "/"+ sizeForm.a).then(function (res) {
           if("ok"==res.data.msg){
             alert("会员已到账！")
-            this.$router.push("/myself")
+            //this.$router.push("show/myself")
+            window.location.href="http://localhost:8080/#/myself";
           }else{
             alert("宇额不足，请先充值！")
-            this.$router.push("/bookpay")
+            window.location.href="http://localhost:8080/#/bookpay";
+            //this.$router.push("/bookpay")
           }
+          //this.$router.push("/bookpay")
+
 
           ///alert(res.data.msg)
 

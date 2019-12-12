@@ -318,7 +318,7 @@
       //查询全部,不带分页
       findAll:function () {
         var  _this = this;
-        axios.get("api/book/booktype").then(function (res) {
+        axios.get("http://47.102.206.8:8080/wuaixiaoshuo/book/booktype").then(function (res) {
           console.log(res.data)
           _this.tableData=  res.data;
         })
